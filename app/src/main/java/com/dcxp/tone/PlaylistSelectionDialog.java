@@ -1,22 +1,20 @@
 package com.dcxp.tone;
 
-import android.app.DialogFragment;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
 /**
  * Created by Daniel on 7/15/2015.
  */
-public class PhraseDialogFragment extends DialogFragment {
+public class PlaylistSelectionDialog extends AlertDialog.Builder {
     public static final String TAG = "com.dcxp.tone";
 
     private class PhraseAdapter extends ArrayAdapter<String> {
@@ -51,19 +49,25 @@ public class PhraseDialogFragment extends DialogFragment {
         }
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().setTitle("Select phrases");
+    public PlaylistSelectionDialog(Context context){
+        super(context);
 
-        View inflatedView = inflater.inflate(R.layout.phrase_dialog, container, false);
+        setTitle("Select phrases");
+        
+        setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
 
         String[] phrases = {"push harder", "keep going", "you got it", "fix your form"};
 
-        ListView lv = (ListView) inflatedView.findViewById(R.id.lv_phrases);
-        lv.setAdapter(new PhraseAdapter(getDialog().getContext(), phrases));
+        ListView listView = new ListView(context);
+        listView.setAdapter(new PhraseAdapter(context, phrases));
 
-
-        return inflatedView;
+        setView(listView);
     }
+
+
 }

@@ -1,7 +1,6 @@
 package com.dcxp.tone.activities;
 
-import android.app.AlertDialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +9,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.dcxp.tone.PhraseDialogFragment;
+import com.dcxp.tone.PlaylistNameDialog;
+import com.dcxp.tone.PlaylistSelectionDialog;
 import com.dcxp.tone.R;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -29,14 +29,14 @@ public class PlaylistActivity extends ActionBarActivity {
         }
 
         ListView lv = (ListView) findViewById(R.id.lv_playlist);
-        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, playlist));
+        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.custom_listview_item, playlist));
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.fab_playlist_add);
         add.attachToListView(lv);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PhraseDialogFragment().show(getFragmentManager(), PhraseDialogFragment.TAG);
+                new PlaylistNameDialog(PlaylistActivity.this).show();
             }
         });
     }
