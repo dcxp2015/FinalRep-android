@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorRipple">@android:color/black</color>
+    <color name="colorPressed">@android:color/white</color>
+    <color name="colorNormal">@android:color/black</color>
+</resources>
