@@ -9,34 +9,42 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.dcxp.tone.IPlaylistCreationListener;
+import com.dcxp.tone.Playlist;
 import com.dcxp.tone.PlaylistNameDialog;
 import com.dcxp.tone.PlaylistSelectionDialog;
 import com.dcxp.tone.R;
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class PlaylistActivity extends ActionBarActivity {
+
+public class PlaylistActivity extends ActionBarActivity implements IPlaylistCreationListener {
+    private List<Playlist> playlists;
+    private List<String> names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
 
-        String[] playlist = new String[25];
+        names = new ArrayList<String>();
+        playlists = new ArrayList<Playlist>();
 
-        for(int i = 0; i < playlist.length; i++) {
-            playlist[i] = "playlist " + i;
+        for(Playlist playlist : playlists) {
+            names.add(playlist.getName());
         }
 
         ListView lv = (ListView) findViewById(R.id.lv_playlist);
-        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.custom_listview_item, playlist));
+        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.custom_listview_item, names));
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.fab_playlist_add);
         add.attachToListView(lv);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PlaylistNameDialog(PlaylistActivity.this).show();
+                new PlaylistNameDialog(PlaylistActivity.this, PlaylistActivity.this).show();
             }
         });
     }
@@ -48,13 +56,8 @@ public class PlaylistActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onPlaylistCreated(Playlist playlist) {
+        names.add(playlist.getName());
+        playlists.add(playlist);
     }
 }

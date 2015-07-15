@@ -1,5 +1,6 @@
 package com.dcxp.tone;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,65 +10,54 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Daniel on 7/15/2015.
  */
 public class PlaylistSelectionDialog extends AlertDialog.Builder {
     public static final String TAG = "com.dcxp.tone";
+    private String[] phrases = {"work harder", "push", "you got it"};
+    private String playlistName;
+    private ListView listView;
+    private PhraseAdapter adapter;
 
-    private class PhraseAdapter extends ArrayAdapter<String> {
-        private String[] phrases;
-        private Context context;
-
-        public PhraseAdapter(Context context, String[] phrases) {
-            super(context, -1, phrases);
-            this.context = context;
-            this.phrases = phrases;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View inflatedView = convertView;
-
-            if(inflatedView == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                inflatedView = inflater.inflate(R.layout.phrase_row, parent, false);
-
-                CheckBox phraseCheckBox = (CheckBox)inflatedView.findViewById(R.id.cb_include);
-                phraseCheckBox.setText(phrases[position]);
-                phraseCheckBox.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-            }
-
-            return inflatedView;
-        }
-    }
-
-    public PlaylistSelectionDialog(Context context){
+    public PlaylistSelectionDialog(final Context context, final IPlaylistCreationListener listener, final String playlistName){
         super(context);
+        this.playlistName = playlistName;
 
         setTitle("Select phrases");
-        
+
         setPositiveButton("Create", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                listener.onPlaylistCreated(new Playlist(playlistName, getSelectedPhrases()));
             }
         });
 
-        String[] phrases = {"push harder", "keep going", "you got it", "fix your form"};
-
-        ListView listView = new ListView(context);
-        listView.setAdapter(new PhraseAdapter(context, phrases));
+        listView = new ListView(context);
+        listView.setAdapter(adapter = new PhraseAdapter(context, phrases));
 
         setView(listView);
     }
 
+    private List<String> getSelectedPhrases() {
+        List<String> selectedPhrases = new ArrayList<String>();
+
+        int count = adapter.getCount();
+        for(int i = 0; i < count; i++) {
+            CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.cb_include);
+
+            if(checkBox.isSelected()) {
+                selectedPhrases.add(checkBox.getText().toString());
+            }
+        }
+
+        return selectedPhrases;
+    }
 
 }

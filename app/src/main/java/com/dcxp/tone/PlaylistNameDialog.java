@@ -13,12 +13,12 @@ import com.dcxp.tone.activities.PlaylistActivity;
  */
 public class PlaylistNameDialog extends AlertDialog.Builder {
 
-    public PlaylistNameDialog(Context context) {
+    public PlaylistNameDialog(Context context, final IPlaylistCreationListener listener) {
         super(context);
 
         setTitle("Select phrases");
 
-        EditText name = new EditText(getContext());
+        final EditText name = new EditText(getContext());
         name.setHint(getContext().getString(R.string.playlistName));
 
         setView(name);
@@ -26,7 +26,7 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
         setPositiveButton("Create", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                new PlaylistSelectionDialog(getContext()).show();
+                new PlaylistSelectionDialog(getContext(), listener, name.getText().toString()).show();
             }
         });
     }
