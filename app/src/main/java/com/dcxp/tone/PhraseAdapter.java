@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,14 @@ public class PhraseAdapter extends ArrayAdapter<String> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflatedView = inflater.inflate(R.layout.phrase_row, parent, false);
         }
+
+        Button play = (Button) inflatedView.findViewById(R.id.btn_play);
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PhraseAdapter.this.getContext(), "Playing...", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         final CheckBox phraseCheckBox = (CheckBox) inflatedView.findViewById(R.id.cb_include);
         phraseCheckBox.setText(phrases[position]);

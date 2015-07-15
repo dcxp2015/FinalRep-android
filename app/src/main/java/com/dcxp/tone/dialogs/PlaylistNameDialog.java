@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
     public PlaylistNameDialog(Context context, final IPlaylistCreationListener listener) {
         super(context);
 
-        setTitle("Select phrases");
+        setTitle("Create a playlist");
 
         final EditText name = new EditText(getContext());
         name.setHint(getContext().getString(R.string.playlistName));
@@ -36,11 +37,10 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                     public void onClick(View v) {
                         String playlistName = name.getText().toString();
 
-                        if(playlistName.trim().length() > 0) {
+                        if (playlistName.trim().length() > 0) {
                             d.dismiss();
                             new PlaylistSelectionDialog(getContext(), listener, playlistName).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
                         }
                     }
