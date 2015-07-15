@@ -3,7 +3,10 @@ package com.dcxp.tone.dialogs;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.dcxp.tone.playlist.IPlaylistCreationListener;
@@ -37,7 +40,9 @@ public class PlaylistSelectionDialog extends AlertDialog.Builder {
             }
         });
 
-        listView = new ListView(context);
+        listView = new ListView(getContext());
+        listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
         listView.setAdapter(adapter = new PhraseAdapter(context, phrases));
 
         setView(listView);

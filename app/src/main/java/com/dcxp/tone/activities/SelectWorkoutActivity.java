@@ -44,15 +44,4 @@ public class SelectWorkoutActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_select_workout, menu);
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
