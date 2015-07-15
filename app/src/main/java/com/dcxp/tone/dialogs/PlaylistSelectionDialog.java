@@ -3,7 +3,9 @@ package com.dcxp.tone.dialogs;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class PlaylistSelectionDialog extends AlertDialog.Builder {
     public static final String TAG = "com.dcxp.tone";
-    private String[] phrases = {"work harder", "push", "you got it"};
+    private String[] phrases;
     private String playlistName;
     private ListView listView;
     private PhraseAdapter adapter;
@@ -31,12 +33,18 @@ public class PlaylistSelectionDialog extends AlertDialog.Builder {
         super(context);
         this.playlistName = playlistName;
 
+        phrases = new String[25];
+
+        for(int i = 0; i < phrases.length; i++) {
+            phrases[i] = "phrase: " + i;
+        }
+
         setTitle("Select phrases");
 
         setPositiveButton("Create", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                listener.onPlaylistCreated(new Playlist(playlistName, getSelectedPhrases()));
+                listener.onPlaylistCreated(new Playlist(playlistName, adapter.getCheckedPhrases()));
             }
         });
 
@@ -47,20 +55,4 @@ public class PlaylistSelectionDialog extends AlertDialog.Builder {
 
         setView(listView);
     }
-
-    private List<String> getSelectedPhrases() {
-        List<String> selectedPhrases = new ArrayList<String>();
-
-        int count = adapter.getCount();
-        for(int i = 0; i < count; i++) {
-            CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.cb_include);
-
-            if(checkBox.isSelected()) {
-                selectedPhrases.add(checkBox.getText().toString());
-            }
-        }
-
-        return selectedPhrases;
-    }
-
 }
