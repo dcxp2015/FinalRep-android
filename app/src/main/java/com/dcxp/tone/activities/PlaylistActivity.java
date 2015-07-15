@@ -1,6 +1,7 @@
 package com.dcxp.tone.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,7 +25,7 @@ public class PlaylistActivity extends ActionBarActivity {
         String[] playlist = new String[25];
 
         for(int i = 0; i < playlist.length; i++) {
-            playlist[i] = "bit " + i;
+            playlist[i] = "playlist " + i;
         }
 
         ListView lv = (ListView) findViewById(R.id.lv_playlist);

@@ -54,7 +54,7 @@ public class PhraseDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().setTitle("Select songs");
+        getDialog().setTitle("Select phrases");
 
         View inflatedView = inflater.inflate(R.layout.phrase_dialog, container, false);
 
@@ -62,6 +62,7 @@ public class PhraseDialogFragment extends DialogFragment {
 
         ListView lv = (ListView) inflatedView.findViewById(R.id.lv_phrases);
         lv.setAdapter(new PhraseAdapter(getDialog().getContext(), phrases));
+
 
         return inflatedView;
     }

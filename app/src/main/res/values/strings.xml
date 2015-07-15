@@ -3,6 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_select_workout">SelectWorkoutActivity</string>
-    <string name="title_activity_playlist">PlaylistActivity</string>
+    <string name="title_activity_select_workout">Select Workout</string>
+    <string name="title_activity_playlist">Playlists</string>
 </resources>
