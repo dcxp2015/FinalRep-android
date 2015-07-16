@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.dcxp.tone.playlist.IPlaylistCreationListener;
 import com.dcxp.tone.R;
+import com.dcxp.tone.playlist.Playlist;
 
 /**
  * Created by Daniel on 7/15/2015.
@@ -39,7 +40,11 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
 
                         if (playlistName.trim().length() > 0) {
                             d.dismiss();
-                            new PlaylistSelectionDialog(getContext(), listener, playlistName).show();
+
+                            Playlist playlist = new Playlist();
+                            playlist.setName(playlistName);
+
+                            new PlaylistSelectionDialog(getContext(), listener, playlist).show();
                         } else {
                             Toast.makeText(getContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
                         }

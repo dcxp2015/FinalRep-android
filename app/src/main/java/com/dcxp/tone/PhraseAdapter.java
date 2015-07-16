@@ -20,11 +20,17 @@ public class PhraseAdapter extends ArrayAdapter<String> {
     private List<String> checkedPhrases;
     private Context context;
 
-    public PhraseAdapter(Context context, String[] phrases) {
+    public PhraseAdapter(Context context, String[] phrases, List<String> alreadyCheckedPhrases) {
         super(context, -1, phrases);
         this.context = context;
         this.phrases = phrases;
         checkedPhrases = new ArrayList<String>();
+
+        if(alreadyCheckedPhrases != null) {
+            for (String str : alreadyCheckedPhrases) {
+                checkedPhrases.add(str);
+            }
+        }
     }
 
     @Override

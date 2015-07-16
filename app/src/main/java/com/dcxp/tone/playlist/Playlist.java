@@ -9,9 +9,25 @@ public class Playlist {
     private String name;
     private List<String> phrases;
 
+    public Playlist() {
+
+    }
+
     public Playlist(String name, List<String> phrases) {
         this.name = name;
         this.phrases = phrases;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhrases(List<String> phrases) {
+        this.phrases = phrases;
+    }
+
+    public void addPhrase(String phrase) {
+        phrases.add(phrase);
     }
 
     public List<String> getPhrases() {

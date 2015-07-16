@@ -7,10 +7,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.dcxp.tone.dialogs.PlaylistSelectionDialog;
 import com.dcxp.tone.playlist.IPlaylistCreationListener;
 import com.dcxp.tone.playlist.Playlist;
 import com.dcxp.tone.dialogs.PlaylistNameDialog;
@@ -47,6 +49,13 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistCrea
             @Override
             public void onClick(View v) {
                 new PlaylistNameDialog(PlaylistActivity.this, PlaylistActivity.this);
+            }
+        });
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new PlaylistSelectionDialog(PlaylistActivity.this, PlaylistActivity.this, playlists.get(position)).show();
             }
         });
     }
