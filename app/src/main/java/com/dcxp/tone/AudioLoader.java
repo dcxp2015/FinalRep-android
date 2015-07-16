@@ -7,9 +7,6 @@ import android.widget.Toast;
 
 import com.dcxp.tone.playlist.Playlist;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.*;
@@ -31,7 +28,7 @@ public class AudioLoader extends AsyncTask<Void, Void, List<Playlist>> {
 
         JSONArray root = null;
         try {
-            root = new JSONArray(IOUtils.readContents(context, "phrases/playlists.json"));
+            root = new JSONArray(IOUtils.readContents(context, "playlists.json"));
         } catch(Exception e) {
             Log.e(TAG, e.toString());
             Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT);

@@ -9,13 +9,13 @@ import com.dcxp.tone.playlist.Playlist;
 import org.json.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Created by Daniel on 7/16/2015.
  */
 public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
     public static final String TAG = "com.dcxp.tone";
+    private static final String PLAYLISTS_FILE = "pl.json";
     private Context context;
 
     public PlaylistSaver(Context context) {
@@ -27,7 +27,7 @@ public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
         JSONArray json = null;
 
         try {
-            json = new JSONArray(IOUtils.readContents(context, "phrases/playlists.json"));
+            json = new JSONArray(IOUtils.readContents(context, PLAYLISTS_FILE));
         } catch(Exception e) {
             Log.e(TAG, e.toString());
             Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT).show();
@@ -54,7 +54,8 @@ public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
         }
 
         try {
-            IOUtils.write(context, "phrases/playlists.json", json.toString());
+            IOUtils.write(context, PLAYLISTS_FILE, json.toString());
+            Log.d(TAG, json.toString());
         } catch(IOException e) {
             Log.e(TAG, e.toString());
             Toast.makeText(context, "Failed to save playlist", Toast.LENGTH_SHORT).show();

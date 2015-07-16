@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.dcxp.tone.PlaylistSaver;
 import com.dcxp.tone.dialogs.PlaylistSelectionDialog;
 import com.dcxp.tone.playlist.IPlaylistCreationListener;
 import com.dcxp.tone.playlist.Playlist;
@@ -72,5 +73,14 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistCrea
         names.add(playlist.getName());
         playlists.add(playlist);
         adapter.notifyDataSetChanged();
+
+        Playlist[] pa = new Playlist[playlists.size()];
+
+        for(int i = 0; i < pa.length; i++) {
+            pa[i] = playlists.get(i);
+        }
+
+        // Save the playlist
+        new PlaylistSaver(this).execute(pa);
     }
 }
