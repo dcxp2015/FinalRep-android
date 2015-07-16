@@ -49,6 +49,7 @@ public class PlaylistSelectionDialog extends AlertDialog.Builder {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     playlist.setPhrases(adapter.getCheckedPhrases());
+                    listener.onPlaylistEdited(playlist);
                 }
             });
         }

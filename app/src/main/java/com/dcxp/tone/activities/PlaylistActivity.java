@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.dcxp.tone.playlist.PlaylistEditor;
 import com.dcxp.tone.playlist.PlaylistLoader;
 import com.dcxp.tone.playlist.PlaylistSaver;
 import com.dcxp.tone.playlist.IPlaylistListener;
@@ -55,7 +56,7 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistList
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new PlaylistNameDialog(PlaylistActivity.this, PlaylistActivity.this, playlists.get(position)).show();
+                new PlaylistNameDialog(PlaylistActivity.this, PlaylistActivity.this, playlists.get(position));
             }
         });
     }
@@ -77,6 +78,14 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistList
     @Override
     public void onPlaylistImported(Playlist playlist) {
         registerPlaylist(playlist);
+    }
+
+    @Override
+    public void onPlaylistEdited(Playlist playlist) {
+        names.remove(playlist.getOldName());
+        names.add(playlist.getName());
+        adapter.notifyDataSetChanged();
+        new PlaylistEditor(this).execute(playlist);
     }
 
     private void registerPlaylist(Playlist playlist) {

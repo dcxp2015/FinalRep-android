@@ -51,8 +51,10 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
 
                             if(playlist == null) {
                                 playlist = new Playlist();
-                                playlist.setName(playlistName);
                             }
+
+                            playlist.setOldName(playlist.getName());
+                            playlist.setName(playlistName);
 
                             new PlaylistSelectionDialog(getContext(), listener, playlist).show();
                         } else {

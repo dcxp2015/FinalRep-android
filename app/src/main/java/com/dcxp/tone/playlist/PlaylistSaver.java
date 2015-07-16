@@ -39,14 +39,7 @@ public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
 
             try {
                 obj.put("name", playlist.getName());
-
-                JSONArray phrases = new JSONArray();
-
-                for(String phrase : playlist.getPhrases()) {
-                    phrases.put(phrase);
-                }
-
-                obj.put("phrases", phrases);
+                obj.put("phrases", PlaylistUtils.phrasesToJSONArray(playlist));
             } catch(JSONException e) {
                 Log.e(TAG, e.toString());
             }
@@ -56,7 +49,6 @@ public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
 
         try {
             IOUtils.write(context, IOSettings.PLAYLIST_JSON_FILE, json.toString());
-            Log.d(TAG, json.toString());
         } catch(IOException e) {
             Log.e(TAG, e.toString());
             Toast.makeText(context, "Failed to save playlist", Toast.LENGTH_SHORT).show();

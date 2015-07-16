@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Playlist {
     private String name;
+    private String oldName;
     private List<String> phrases;
 
     public Playlist() {
@@ -17,6 +18,14 @@ public class Playlist {
     public Playlist(String name, List<String> phrases) {
         this.name = name;
         this.phrases = phrases;
+    }
+
+    public void setOldName(String oldName) {
+        this.oldName = oldName;
+    }
+
+    public String getOldName() {
+        return oldName;
     }
 
     public void setName(String name) {

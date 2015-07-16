@@ -6,4 +6,5 @@ package com.dcxp.tone.playlist;
 public interface IPlaylistListener {
     void onPlaylistCreated(Playlist playlist);
     void onPlaylistImported(Playlist playlist);
+    void onPlaylistEdited(Playlist playlist);
 }
