@@ -7,4 +7,5 @@
     <string name="title_activity_playlist">Playlists</string>
     <string name="create">Create</string>
     <string name="playlistName">Name</string>
+    <string name="title_activity_phrase_libary">PhraseLibaryActivity</string>
 </resources>
