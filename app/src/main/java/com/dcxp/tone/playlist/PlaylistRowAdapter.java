@@ -41,7 +41,9 @@ public class PlaylistRowAdapter extends ArrayAdapter<Playlist> {
         }
 
         // Set the text of the title to that of the corresponding playlist
-        ((TextView) inflatedView.findViewById(R.id.txtv_name)).setText(playlists.get(position).getName());
+        TextView name = (TextView) inflatedView.findViewById(R.id.txtv_name);
+        name.setText(playlists.get(position).getName());
+
 
         // Button to remove this playlist
         ImageButton remove = (ImageButton) inflatedView.findViewById(R.id.btn_remove);
