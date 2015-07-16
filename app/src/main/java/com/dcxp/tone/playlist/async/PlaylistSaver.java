@@ -1,4 +1,4 @@
-package com.dcxp.tone.playlist;
+package com.dcxp.tone.playlist.async;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.dcxp.tone.io.IOSettings;
 import com.dcxp.tone.io.IOUtils;
+import com.dcxp.tone.playlist.Playlist;
+import com.dcxp.tone.playlist.PlaylistUtils;
 
 import org.json.*;
 
@@ -25,14 +27,7 @@ public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
 
     @Override
     protected Void doInBackground(Playlist... params) {
-        JSONArray json = null;
-
-        try {
-            json = new JSONArray(IOUtils.readContents(context, IOSettings.PLAYLIST_JSON_FILE));
-        } catch(Exception e) {
-            Log.e(TAG, e.toString());
-            Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT).show();
-        }
+        JSONArray json = new JSONArray();
 
         for(Playlist playlist : params) {
             JSONObject obj = new JSONObject();

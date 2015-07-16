@@ -7,11 +7,13 @@ import org.json.JSONArray;
  */
 public class PlaylistUtils {
 
-    public static JSONArray phrasesToJSONArray(Playlist playlist) {
+    public static synchronized JSONArray phrasesToJSONArray(Playlist playlist) {
         JSONArray phrases = new JSONArray();
 
-        for(String phrase : playlist.getPhrases()) {
-            phrases.put(phrase);
+        if(playlist.getPhrases() != null) {
+            for (String phrase : playlist.getPhrases()) {
+                phrases.put(phrase);
+            }
         }
 
         return phrases;

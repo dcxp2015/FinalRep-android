@@ -2,15 +2,13 @@ package com.dcxp.tone.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.dcxp.tone.playlist.PlaylistEditor;
-import com.dcxp.tone.playlist.PlaylistLoader;
-import com.dcxp.tone.playlist.PlaylistSaver;
+import com.dcxp.tone.playlist.async.PlaylistLoader;
+import com.dcxp.tone.playlist.PlaylistRowAdapter;
+import com.dcxp.tone.playlist.async.PlaylistSaver;
 import com.dcxp.tone.playlist.IPlaylistListener;
 import com.dcxp.tone.playlist.Playlist;
 import com.dcxp.tone.dialogs.PlaylistNameDialog;
@@ -24,7 +22,7 @@ import java.util.List;
 public class PlaylistActivity extends ActionBarActivity implements IPlaylistListener {
     private List<Playlist> playlists;
     private List<String> names;
-    private ArrayAdapter<String> adapter;
+    private PlaylistRowAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistList
         }
 
         ListView lv = (ListView) findViewById(R.id.lv_playlist);
-        lv.setAdapter(adapter = new ArrayAdapter<String>(this, R.layout.custom_listview_item, names));
+        lv.setAdapter(adapter = new PlaylistRowAdapter(this, playlists, this));
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.fab_playlist_add);
         add.attachToListView(lv);
@@ -62,17 +60,21 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistList
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_playlist, menu);
-        return true;
+    protected void onPause() {
+        super.onPause();
+
+        Playlist[] pa = new Playlist[playlists.size()];
+
+        for(int i = 0; i < pa.length; i++) {
+            pa[i] = playlists.get(i);
+        }
+
+        new PlaylistSaver(this).execute(pa);
     }
 
     @Override
     public void onPlaylistCreated(Playlist playlist) {
         registerPlaylist(playlist);
-
-        // Save the playlist
-        new PlaylistSaver(this).execute(playlist);
     }
 
     @Override
@@ -85,7 +87,13 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistList
         names.remove(playlist.getOldName());
         names.add(playlist.getName());
         adapter.notifyDataSetChanged();
-        new PlaylistEditor(this).execute(playlist);
+    }
+
+    @Override
+    public void onPlaylistRemoved(Playlist playlist) {
+        playlists.remove(playlist);
+        names.remove(playlist.getName());
+        adapter.notifyDataSetChanged();
     }
 
     @Override
