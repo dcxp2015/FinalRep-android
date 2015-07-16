@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.dcxp.tone.R;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by Daniel on 7/16/2015.
  */
-public class PhraseLibaryRowAdapter extends ArrayAdapter<String> {
+public class PhraseLibaryRowAdapter extends ArrayAdapter<String>  {
     private List<String> phrases;
     private Context context;
 
