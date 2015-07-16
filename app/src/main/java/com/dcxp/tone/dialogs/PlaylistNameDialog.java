@@ -1,5 +1,6 @@
 package com.dcxp.tone.dialogs;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,8 +17,9 @@ import com.dcxp.tone.playlist.Playlist;
  * Created by Daniel on 7/15/2015.
  */
 public class PlaylistNameDialog extends AlertDialog.Builder {
+    private boolean editingMode;
 
-    public PlaylistNameDialog(Context context, final IPlaylistListener listener, final Playlist playlistToEdit) {
+    public PlaylistNameDialog(final Context context, final IPlaylistListener listener, final Playlist playlistToEdit) {
         super(context);
 
         final EditText name = new EditText(getContext());
@@ -25,6 +27,7 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
 
         if(playlistToEdit != null) {
             // The playlist is being edited
+            editingMode = true;
             name.setText(playlistToEdit.getName());
             setTitle("Edit playlist");
         }
@@ -32,6 +35,11 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
             setTitle("Create a playlist");
         }
 
+        name.setSelection(name.getText().length());
+
+//        name.requestFocus();
+//        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         setView(name);
 
@@ -46,13 +54,21 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                     public void onClick(View v) {
                         String playlistName = name.getText().toString();
 
+                        if(listener.isPlaylistNameTaken(playlistName)) {
+                            if(playlistToEdit != null && !playlistName.equals(playlistToEdit.getName())) {
+                                Toast.makeText(getContext(), "You already have a playlist with that name", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                        }
+
                         // If the name hasn't been used and it is not all spaces then continue
-                        if (playlistName.trim().length() > 0 && !listener.isPlaylistNameTaken(playlistName)) {
+                        if (playlistName.trim().length() > 0){
                             d.dismiss();
 
                             Playlist playlist = playlistToEdit;
 
-                            if(playlist == null) {
+                            if (playlist == null) {
                                 playlist = new Playlist();
                             }
 
@@ -60,22 +76,15 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                             playlist.setName(playlistName);
 
                             new PlaylistSelectionDialog(getContext(), listener, playlist).show();
-                        } else {
-                            String text = "";
-
-                            if(listener.isPlaylistNameTaken(playlistName)) {
-                                text = "You already have a playlist with that name";
-                            }
-                            else {
-                                text = "Please enter a valid name";
-                            }
-
-                            Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getContext(), "Please enter a valid playlist name", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         });
+
 
         d.show();
     }

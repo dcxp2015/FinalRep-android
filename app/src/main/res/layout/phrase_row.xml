@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <CheckBox
@@ -11,12 +12,11 @@
         android:text="New CheckBox"
         android:id="@+id/cb_include"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="|>"
         android:id="@+id/btn_play"
+        android:background="@android:drawable/ic_media_play"
         android:layout_alignBottom="@+id/cb_include"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

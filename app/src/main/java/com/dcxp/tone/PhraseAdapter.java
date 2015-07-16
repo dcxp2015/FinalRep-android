@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class PhraseAdapter extends ArrayAdapter<String> {
             inflatedView = inflater.inflate(R.layout.phrase_row, parent, false);
         }
 
-        Button play = (Button) inflatedView.findViewById(R.id.btn_play);
+        ImageButton play = (ImageButton) inflatedView.findViewById(R.id.btn_play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

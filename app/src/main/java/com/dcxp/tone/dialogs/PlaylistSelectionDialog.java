@@ -3,10 +3,14 @@ package com.dcxp.tone.dialogs;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.dcxp.tone.R;
 import com.dcxp.tone.playlist.IPlaylistListener;
 import com.dcxp.tone.PhraseAdapter;
 import com.dcxp.tone.playlist.Playlist;
@@ -58,6 +62,13 @@ public class PlaylistSelectionDialog extends AlertDialog.Builder {
         listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         listView.setAdapter(adapter = new PhraseAdapter(context, phrases, playlist.getPhrases()));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CheckBox v = (CheckBox) view.findViewById(R.id.cb_include);
+                v.setChecked(!v.isChecked());
+            }
+        });
 
         setView(listView);
     }
