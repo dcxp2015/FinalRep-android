@@ -44,7 +44,8 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                     public void onClick(View v) {
                         String playlistName = name.getText().toString();
 
-                        if (playlistName.trim().length() > 0) {
+                        // If the name hasn't been used and it is not all spaces then continue
+                        if (playlistName.trim().length() > 0 && !listener.isPlaylistNameTaken(playlistName)) {
                             d.dismiss();
 
                             Playlist playlist = playlistToEdit;
@@ -58,7 +59,16 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
 
                             new PlaylistSelectionDialog(getContext(), listener, playlist).show();
                         } else {
-                            Toast.makeText(getContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
+                            String text = "";
+
+                            if(listener.isPlaylistNameTaken(playlistName)) {
+                                text = "You already have a playlist with that name";
+                            }
+                            else {
+                                text = "Please enter a valid name";
+                            }
+
+                            Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

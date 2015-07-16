@@ -88,6 +88,11 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistList
         new PlaylistEditor(this).execute(playlist);
     }
 
+    @Override
+    public boolean isPlaylistNameTaken(String name) {
+        return names.contains(name);
+    }
+
     private void registerPlaylist(Playlist playlist) {
         names.add(playlist.getName());
         playlists.add(playlist);
