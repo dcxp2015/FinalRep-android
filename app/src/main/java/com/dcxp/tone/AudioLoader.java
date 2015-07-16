@@ -31,7 +31,7 @@ public class AudioLoader extends AsyncTask<Void, Void, List<Playlist>> {
 
         JSONArray root = null;
         try {
-            root = new JSONArray(readContents("phrases/playlists.json"));
+            root = new JSONArray(IOUtils.readContents(context, "phrases/playlists.json"));
         } catch(Exception e) {
             Log.e(TAG, e.toString());
             Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT);
@@ -62,15 +62,5 @@ public class AudioLoader extends AsyncTask<Void, Void, List<Playlist>> {
         }
 
         return playlist;
-    }
-
-    private String readContents(String file) throws IOException {
-        InputStream bufferedInputStream = context.getAssets().open(file);
-
-        byte[] buffer = new byte[bufferedInputStream.available()];
-
-        bufferedInputStream.read(buffer);
-
-        return new String(buffer);
     }
 }
