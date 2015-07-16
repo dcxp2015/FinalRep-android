@@ -4,11 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dcxp.tone.playlist.IPlaylistCreationListener;
+import com.dcxp.tone.playlist.IPlaylistListener;
 import com.dcxp.tone.R;
 import com.dcxp.tone.playlist.Playlist;
 
@@ -17,7 +16,7 @@ import com.dcxp.tone.playlist.Playlist;
  */
 public class PlaylistNameDialog extends AlertDialog.Builder {
 
-    public PlaylistNameDialog(Context context, final IPlaylistCreationListener listener, final Playlist playlistToEdit) {
+    public PlaylistNameDialog(Context context, final IPlaylistListener listener, final Playlist playlistToEdit) {
         super(context);
 
         final EditText name = new EditText(getContext());

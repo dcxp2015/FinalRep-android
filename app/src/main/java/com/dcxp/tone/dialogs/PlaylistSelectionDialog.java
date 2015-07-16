@@ -3,21 +3,13 @@ package com.dcxp.tone.dialogs;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.dcxp.tone.playlist.IPlaylistCreationListener;
+import com.dcxp.tone.playlist.IPlaylistListener;
 import com.dcxp.tone.PhraseAdapter;
 import com.dcxp.tone.playlist.Playlist;
-import com.dcxp.tone.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Daniel on 7/15/2015.
@@ -29,7 +21,7 @@ public class PlaylistSelectionDialog extends AlertDialog.Builder {
     private ListView listView;
     private PhraseAdapter adapter;
 
-    public PlaylistSelectionDialog(final Context context, final IPlaylistCreationListener listener, final Playlist playlist){
+    public PlaylistSelectionDialog(final Context context, final IPlaylistListener listener, final Playlist playlist){
         super(context);
         this.playlist = playlist;
 

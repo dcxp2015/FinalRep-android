@@ -1,11 +1,13 @@
-package com.dcxp.tone;
+package com.dcxp.tone.playlist;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dcxp.tone.playlist.Playlist;
+import com.dcxp.tone.io.IOSettings;
+import com.dcxp.tone.io.IOUtils;
+
 import org.json.*;
 
 import java.io.IOException;
@@ -15,7 +17,6 @@ import java.io.IOException;
  */
 public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
     public static final String TAG = "com.dcxp.tone";
-    private static final String PLAYLISTS_FILE = "pl.json";
     private Context context;
 
     public PlaylistSaver(Context context) {
@@ -27,7 +28,7 @@ public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
         JSONArray json = null;
 
         try {
-            json = new JSONArray(IOUtils.readContents(context, PLAYLISTS_FILE));
+            json = new JSONArray(IOUtils.readContents(context, IOSettings.PLAYLIST_JSON_FILE));
         } catch(Exception e) {
             Log.e(TAG, e.toString());
             Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT).show();
@@ -54,7 +55,7 @@ public class PlaylistSaver extends AsyncTask<Playlist, Void, Void> {
         }
 
         try {
-            IOUtils.write(context, PLAYLISTS_FILE, json.toString());
+            IOUtils.write(context, IOSettings.PLAYLIST_JSON_FILE, json.toString());
             Log.d(TAG, json.toString());
         } catch(IOException e) {
             Log.e(TAG, e.toString());

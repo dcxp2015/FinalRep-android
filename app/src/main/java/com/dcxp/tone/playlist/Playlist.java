@@ -1,5 +1,6 @@
 package com.dcxp.tone.playlist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,10 @@ public class Playlist {
     }
 
     public void addPhrase(String phrase) {
+        if(phrases == null) {
+            phrases = new ArrayList<String>();
+        }
+
         phrases.add(phrase);
     }
 

@@ -1,11 +1,13 @@
-package com.dcxp.tone;
+package com.dcxp.tone.playlist;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dcxp.tone.playlist.Playlist;
+import com.dcxp.tone.activities.PlaylistActivity;
+import com.dcxp.tone.io.IOSettings;
+import com.dcxp.tone.io.IOUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +16,11 @@ import org.json.*;
 /**
  * Created by Daniel on 7/16/2015.
  */
-public class AudioLoader extends AsyncTask<Void, Void, List<Playlist>> {
+public class PlaylistLoader extends AsyncTask<Void, Void, List<Playlist>> {
     public static final String TAG = "com.dcxp.tone";
     private Context context;
 
-    public AudioLoader(Context context) {
+    public PlaylistLoader(Context context) {
         this.context = context;
     }
 
@@ -28,10 +30,9 @@ public class AudioLoader extends AsyncTask<Void, Void, List<Playlist>> {
 
         JSONArray root = null;
         try {
-            root = new JSONArray(IOUtils.readContents(context, "playlists.json"));
+            root = new JSONArray(IOUtils.readContents(context, IOSettings.PLAYLIST_JSON_FILE));
         } catch(Exception e) {
             Log.e(TAG, e.toString());
-            Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT);
         }
 
         int length = root.length();
@@ -59,5 +60,14 @@ public class AudioLoader extends AsyncTask<Void, Void, List<Playlist>> {
         }
 
         return playlist;
+    }
+
+    @Override
+    protected void onPostExecute(List<Playlist> playlists) {
+        super.onPostExecute(playlists);
+
+        for(Playlist playlist : playlists) {
+            ((PlaylistActivity) context).onPlaylistImported(playlist);
+        }
     }
 }

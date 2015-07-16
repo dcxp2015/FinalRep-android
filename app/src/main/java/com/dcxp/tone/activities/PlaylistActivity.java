@@ -1,20 +1,16 @@
 package com.dcxp.tone.activities;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.dcxp.tone.PlaylistSaver;
-import com.dcxp.tone.dialogs.PlaylistSelectionDialog;
-import com.dcxp.tone.playlist.IPlaylistCreationListener;
+import com.dcxp.tone.playlist.PlaylistLoader;
+import com.dcxp.tone.playlist.PlaylistSaver;
+import com.dcxp.tone.playlist.IPlaylistListener;
 import com.dcxp.tone.playlist.Playlist;
 import com.dcxp.tone.dialogs.PlaylistNameDialog;
 import com.dcxp.tone.R;
@@ -24,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlaylistActivity extends ActionBarActivity implements IPlaylistCreationListener {
+public class PlaylistActivity extends ActionBarActivity implements IPlaylistListener {
     private List<Playlist> playlists;
     private List<String> names;
     private ArrayAdapter<String> adapter;
@@ -33,6 +29,8 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistCrea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
+
+        new PlaylistLoader(this).execute();
 
         names = new ArrayList<String>();
         playlists = new ArrayList<Playlist>();
@@ -70,17 +68,20 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistCrea
 
     @Override
     public void onPlaylistCreated(Playlist playlist) {
+        registerPlaylist(playlist);
+
+        // Save the playlist
+        new PlaylistSaver(this).execute(playlist);
+    }
+
+    @Override
+    public void onPlaylistImported(Playlist playlist) {
+        registerPlaylist(playlist);
+    }
+
+    private void registerPlaylist(Playlist playlist) {
         names.add(playlist.getName());
         playlists.add(playlist);
         adapter.notifyDataSetChanged();
-
-        Playlist[] pa = new Playlist[playlists.size()];
-
-        for(int i = 0; i < pa.length; i++) {
-            pa[i] = playlists.get(i);
-        }
-
-        // Save the playlist
-        new PlaylistSaver(this).execute(pa);
     }
 }
