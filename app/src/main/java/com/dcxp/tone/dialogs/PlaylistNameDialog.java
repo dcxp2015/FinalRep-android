@@ -17,13 +17,20 @@ import com.dcxp.tone.playlist.Playlist;
  */
 public class PlaylistNameDialog extends AlertDialog.Builder {
 
-    public PlaylistNameDialog(Context context, final IPlaylistCreationListener listener) {
+    public PlaylistNameDialog(Context context, final IPlaylistCreationListener listener, final Playlist playlistToEdit) {
         super(context);
-
-        setTitle("Create a playlist");
 
         final EditText name = new EditText(getContext());
         name.setHint(getContext().getString(R.string.playlistName));
+
+        if(playlistToEdit != null) {
+            // The playlist is being edited
+            name.setText(playlistToEdit.getName());
+            setTitle("Edit playlist");
+        }
+        else {
+            setTitle("Create a playlist");
+        }
 
         setView(name);
 
@@ -41,8 +48,12 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                         if (playlistName.trim().length() > 0) {
                             d.dismiss();
 
-                            Playlist playlist = new Playlist();
-                            playlist.setName(playlistName);
+                            Playlist playlist = playlistToEdit;
+
+                            if(playlist == null) {
+                                playlist = new Playlist();
+                                playlist.setName(playlistName);
+                            }
 
                             new PlaylistSelectionDialog(getContext(), listener, playlist).show();
                         } else {

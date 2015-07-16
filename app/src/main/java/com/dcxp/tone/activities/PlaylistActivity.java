@@ -48,14 +48,15 @@ public class PlaylistActivity extends ActionBarActivity implements IPlaylistCrea
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PlaylistNameDialog(PlaylistActivity.this, PlaylistActivity.this);
+                // Create a playlist creation dialog, we are not editing so give it a null playlist name
+                new PlaylistNameDialog(PlaylistActivity.this, PlaylistActivity.this, null);
             }
         });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new PlaylistSelectionDialog(PlaylistActivity.this, PlaylistActivity.this, playlists.get(position)).show();
+                new PlaylistNameDialog(PlaylistActivity.this, PlaylistActivity.this, playlists.get(position)).show();
             }
         });
     }
