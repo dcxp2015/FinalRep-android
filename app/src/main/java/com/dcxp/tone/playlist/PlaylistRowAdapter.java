@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,9 +49,6 @@ public class PlaylistRowAdapter extends ArrayAdapter<Playlist> {
         // Button to remove this playlist
         ImageButton remove = (ImageButton) inflatedView.findViewById(R.id.btn_remove);
 
-        // Change it's tint to dark red
-        remove.setColorFilter(context.getResources().getColor(android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP);
-
         // Remove a playlist when it's clicked
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,4 +59,5 @@ public class PlaylistRowAdapter extends ArrayAdapter<Playlist> {
 
         return inflatedView;
     }
+
 }
