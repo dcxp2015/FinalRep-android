@@ -14,7 +14,6 @@
         <activity
             android:name=".activities.SelectWorkoutActivity"
             android:label="@string/title_activity_select_workout" >
-
         </activity>
         <activity
             android:name=".activities.PlaylistActivity"
@@ -23,6 +22,10 @@
         <activity
             android:name=".activities.PhraseLibaryActivity"
             android:label="@string/title_activity_phrase_libary" >
+        </activity>
+        <activity
+            android:name=".activities.ExploreActivity"
+            android:label="@string/title_activity_explore" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
