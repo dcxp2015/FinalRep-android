@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import com.dcxp.tone.Phrase;
 import com.dcxp.tone.R;
 import com.dcxp.tone.RVPhraseAdapter;
+import com.dcxp.tone.dialogs.PlaylistNameDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,15 @@ public class PlaylistSelectionActivity extends ActionBarActivity implements View
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(new RVPhraseAdapter(R.layout.phrase_selection_row, phrases, this));
+
+        FloatingActionButton next = (FloatingActionButton) findViewById(R.id.fab_next);
+        next.attachToRecyclerView(recyclerView);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

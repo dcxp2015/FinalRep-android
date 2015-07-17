@@ -14,6 +14,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"
         fab:fab_colorNormal="@color/colorNormal"
         fab:fab_colorPressed="@color/colorPressed"
         fab:fab_colorRipple="@color/colorRipple"/>
