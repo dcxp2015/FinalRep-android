@@ -1,5 +1,7 @@
 package com.dcxp.tone.uploadexplorer;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.internal.view.menu.MenuView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -57,6 +59,25 @@ public class UploadRVAdapter extends RecyclerView.Adapter<UploadRVAdapter.ViewHo
             downloadButton = (ImageButton) view.findViewById(R.id.ibtn_download);
             title = (TextView) view.findViewById(R.id.txtv_title);
             submitter = (TextView) view.findViewById(R.id.txtv_submitter);
+
+
+            playButton.setTag(R.drawable.play);
+
+            final Resources resources = view.getResources();
+
+            playButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(playButton.getTag().equals(R.drawable.play)) {
+                        playButton.setTag(R.drawable.pause);
+                        playButton.setBackgroundResource(R.drawable.pause);
+                    }
+                    else {
+                        playButton.setTag(R.drawable.play);
+                        playButton.setBackgroundResource(R.drawable.play);
+                    }
+                }
+            });
         }
     }
 }

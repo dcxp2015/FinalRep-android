@@ -24,9 +24,13 @@ public class ExploreActivity extends ActionBarActivity {
         setContentView(R.layout.activity_explore);
 
         uploads = new ArrayList<UploadedPhrase>();
-        uploads.add(new UploadedPhrase("Push harder!", "Daniel Christopher"));
-        uploads.add(new UploadedPhrase("You got it!", "Daniel Christopher"));
-        uploads.add(new UploadedPhrase("Lets go!", "Daniel Christopher"));
+        uploads.add(new UploadedPhrase("Push harder", "Daniel Christopher"));
+        uploads.add(new UploadedPhrase("You got it", "Daniel Christopher"));
+        uploads.add(new UploadedPhrase("Lets go", "Daniel Christopher"));
+        uploads.add(new UploadedPhrase("No pain no gain", "Daniel Christopher"));
+        uploads.add(new UploadedPhrase("Pain is temporary", "Daniel Christopher"));
+        uploads.add(new UploadedPhrase("Never give up", "Daniel Christopher"));
+        uploads.add(new UploadedPhrase("Work harder", "Daniel Christopher"));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
