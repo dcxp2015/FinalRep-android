@@ -1,4 +1,4 @@
-package com.dcxp.tone.utils.io;
+package com.dcxp.tone.utils;
 
 /**
  * Created by Daniel on 7/16/2015.

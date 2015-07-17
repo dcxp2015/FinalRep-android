@@ -3,14 +3,23 @@ package com.dcxp.tone.activities;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.dcxp.tone.Phrase;
 import com.dcxp.tone.R;
+import com.dcxp.tone.RVPhraseAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SelectWorkoutActivity extends ActionBarActivity {

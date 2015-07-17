@@ -4,9 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.dcxp.tone.Phrase;
 import com.dcxp.tone.activities.PlaylistActivity;
-import com.dcxp.tone.utils.io.IOSettings;
-import com.dcxp.tone.utils.io.IOUtils;
+import com.dcxp.tone.utils.IOSettings;
+import com.dcxp.tone.utils.IOUtils;
 import com.dcxp.tone.playlist.Playlist;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class PlaylistLoader extends AsyncTask<Void, Void, List<Playlist>> {
 
         int length = phrases.length();
         for(int i = 0; i < length; i++) {
-            playlist.addPhrase(phrases.getString(i));
+            playlist.addPhrase((Phrase) phrases.get(i));
         }
 
         return playlist;

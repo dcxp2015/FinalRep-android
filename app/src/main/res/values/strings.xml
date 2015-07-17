@@ -9,4 +9,5 @@
     <string name="playlistName">Name</string>
     <string name="title_activity_phrase_libary">PhraseLibaryActivity</string>
     <string name="title_activity_explore">ExploreActivity</string>
+    <string name="title_activity_playlist_selection">PlaylistSelectionActivity</string>
 </resources>

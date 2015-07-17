@@ -1,4 +1,4 @@
-package com.dcxp.tone.uploadexplorer;
+package com.dcxp.tone;
 
 import android.widget.Filter;
 
@@ -8,25 +8,25 @@ import java.util.List;
 /**
  * Created by Daniel on 7/17/2015.
  */
-public class UploadedPhrase {
+public class Phrase {
     private String name;
     private String submitter;
 
-    public UploadedPhrase(String name, String submitter) {
+    public Phrase(String name, String submitter) {
         this.name = name;
         this.submitter = submitter;
     }
 
-    public static Filter filter(final List<UploadedPhrase> original, final List<UploadedPhrase> uploads, final UploadRVAdapter adapter) {
+    public static Filter filter(final List<Phrase> original, final List<Phrase> uploads, final RVPhraseAdapter adapter) {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new FilterResults();
-                List<UploadedPhrase> filtered = new ArrayList<UploadedPhrase>();
-                List<UploadedPhrase> originalUploads = original;
+                List<Phrase> filtered = new ArrayList<Phrase>();
+                List<Phrase> originalUploads = original;
 
                 if (originalUploads.size() == 0) {
-                    for(UploadedPhrase upload : (List<UploadedPhrase>)uploads) {
+                    for(Phrase upload : (List<Phrase>)uploads) {
                         originalUploads.add(upload);
                     }
                 }
@@ -39,7 +39,7 @@ public class UploadedPhrase {
                     constraint = constraint.toString().toLowerCase();
 
                     for (int i = 0; i < originalUploads.size(); i++) {
-                        UploadedPhrase data = originalUploads.get(i);
+                        Phrase data = originalUploads.get(i);
 
                         if (data.getName().toLowerCase().startsWith(constraint.toString())) {
                             filtered.add(data);
@@ -57,7 +57,7 @@ public class UploadedPhrase {
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 uploads.clear();
 
-                for(UploadedPhrase upload : (List<UploadedPhrase>)results.values) {
+                for(Phrase upload : (List<Phrase>)results.values) {
                     uploads.add(upload);
                 }
 

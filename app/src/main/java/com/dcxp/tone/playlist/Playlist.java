@@ -1,5 +1,7 @@
 package com.dcxp.tone.playlist;
 
+import com.dcxp.tone.Phrase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +11,13 @@ import java.util.List;
 public class Playlist {
     private String name;
     private String oldName;
-    private List<String> phrases;
+    private List<Phrase> phrases;
 
     public Playlist() {
 
     }
 
-    public Playlist(String name, List<String> phrases) {
+    public Playlist(String name, List<Phrase> phrases) {
         this.name = name;
         this.phrases = phrases;
     }
@@ -32,19 +34,19 @@ public class Playlist {
         this.name = name;
     }
 
-    public void setPhrases(List<String> phrases) {
+    public void setPhrases(List<Phrase> phrases) {
         this.phrases = phrases;
     }
 
-    public void addPhrase(String phrase) {
+    public void addPhrase(Phrase phrase) {
         if(phrases == null) {
-            phrases = new ArrayList<String>();
+            phrases = new ArrayList<Phrase>();
         }
 
         phrases.add(phrase);
     }
 
-    public List<String> getPhrases() {
+    public List<Phrase> getPhrases() {
         return phrases;
     }
 

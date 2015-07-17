@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dcxp.tone.activities.PlaylistSelectionActivity;
+import com.dcxp.tone.activities.SelectWorkoutActivity;
 import com.dcxp.tone.playlist.IPlaylistListener;
 import com.dcxp.tone.R;
 import com.dcxp.tone.playlist.Playlist;
@@ -75,7 +78,7 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                             playlist.setOldName(playlist.getName());
                             playlist.setName(playlistName);
 
-                            new PlaylistSelectionDialog(getContext(), listener, playlist).show();
+                            getContext().startActivity(new Intent(getContext(), PlaylistSelectionActivity.class));
                         }
                         else {
                             Toast.makeText(getContext(), "Please enter a valid playlist name", Toast.LENGTH_SHORT).show();

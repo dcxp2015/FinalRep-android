@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dcxp.tone.utils.io.IOSettings;
-import com.dcxp.tone.utils.io.IOUtils;
+import com.dcxp.tone.utils.IOSettings;
+import com.dcxp.tone.utils.IOUtils;
 import com.dcxp.tone.playlist.Playlist;
 import com.dcxp.tone.playlist.PlaylistUtils;
 

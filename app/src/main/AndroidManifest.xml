@@ -14,6 +14,11 @@
         <activity
             android:name=".activities.SelectWorkoutActivity"
             android:label="@string/title_activity_select_workout" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.PlaylistActivity"
@@ -22,17 +27,14 @@
         <activity
             android:name=".activities.PhraseLibaryActivity"
             android:label="@string/title_activity_phrase_libary" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
         <activity
             android:name=".activities.ExploreActivity"
             android:label="@string/title_activity_explore" >
+        </activity>
+        <activity
+            android:name=".activities.PlaylistSelectionActivity"
+            android:label="@string/title_activity_playlist_selection" >
         </activity>
     </application>
 

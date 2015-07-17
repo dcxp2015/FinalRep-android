@@ -1,5 +1,7 @@
 package com.dcxp.tone.playlist;
 
+import com.dcxp.tone.Phrase;
+
 import org.json.JSONArray;
 
 /**
@@ -11,7 +13,7 @@ public class PlaylistUtils {
         JSONArray phrases = new JSONArray();
 
         if(playlist.getPhrases() != null) {
-            for (String phrase : playlist.getPhrases()) {
+            for (Phrase phrase : playlist.getPhrases()) {
                 phrases.put(phrase);
             }
         }

@@ -1,4 +1,4 @@
-package com.dcxp.tone.utils.io;
+package com.dcxp.tone.utils;
 
 import android.content.Context;
 import android.util.Log;

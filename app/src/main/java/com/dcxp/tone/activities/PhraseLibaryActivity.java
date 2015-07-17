@@ -6,17 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Adapter;
 import android.widget.Filter;
-import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.dcxp.tone.R;
-import com.dcxp.tone.library.PhraseLibaryRowAdapter;
-import com.dcxp.tone.uploadexplorer.UploadRVAdapter;
-import com.dcxp.tone.uploadexplorer.UploadedPhrase;
+import com.dcxp.tone.RVPhraseAdapter;
+import com.dcxp.tone.Phrase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +20,17 @@ public class PhraseLibaryActivity extends ActionBarActivity implements SearchVie
     private RecyclerView lv;
     private SearchView searchView;
     private Filter filter;
-    private UploadRVAdapter adapter;
+    private RVPhraseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phrase_libary);
 
-        List<UploadedPhrase> phrases = new ArrayList<UploadedPhrase>();
+        List<Phrase> phrases = new ArrayList<Phrase>();
 
-        phrases.add(new UploadedPhrase("Push harder", "Daniel Christopher"));
-        phrases.add(new UploadedPhrase("You got it", "Daniel Christopher"));
+        phrases.add(new Phrase("Push harder", "Daniel Christopher"));
+        phrases.add(new Phrase("You got it", "Daniel Christopher"));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -43,7 +38,7 @@ public class PhraseLibaryActivity extends ActionBarActivity implements SearchVie
         lv = (RecyclerView) findViewById(R.id.rv_phrases);
         //lv.setTextFilterEnabled(true);
         lv.setLayoutManager(layoutManager);
-        lv.setAdapter(adapter = new UploadRVAdapter(phrases));
+        lv.setAdapter(adapter = new RVPhraseAdapter(R.layout.phrase_library_row, phrases));
 
         searchView = (SearchView) findViewById(R.id.sv_search);
         searchView.setQueryHint("Search");
