@@ -1,4 +1,4 @@
-package com.dcxp.tone;
+package com.dcxp.tone.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

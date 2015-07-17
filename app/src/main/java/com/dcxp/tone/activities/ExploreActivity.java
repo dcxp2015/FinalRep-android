@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.dcxp.tone.Divider;
+import com.dcxp.tone.utils.Divider;
 import com.dcxp.tone.R;
 import com.dcxp.tone.uploadexplorer.UploadRVAdapter;
 import com.dcxp.tone.uploadexplorer.UploadedPhrase;

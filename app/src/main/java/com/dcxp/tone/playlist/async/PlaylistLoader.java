@@ -3,11 +3,10 @@ package com.dcxp.tone.playlist.async;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.dcxp.tone.activities.PlaylistActivity;
-import com.dcxp.tone.io.IOSettings;
-import com.dcxp.tone.io.IOUtils;
+import com.dcxp.tone.utils.io.IOSettings;
+import com.dcxp.tone.utils.io.IOUtils;
 import com.dcxp.tone.playlist.Playlist;
 
 import java.util.ArrayList;

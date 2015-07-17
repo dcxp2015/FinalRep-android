@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -15,16 +17,19 @@ import android.widget.TextView;
 
 import com.dcxp.tone.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Daniel on 7/17/2015.
  */
-public class UploadRVAdapter extends RecyclerView.Adapter<UploadRVAdapter.ViewHolder> {
+public class UploadRVAdapter extends RecyclerView.Adapter<UploadRVAdapter.ViewHolder> implements Filterable {
     private List<UploadedPhrase> uploads;
+    private List<UploadedPhrase> originalUploads;
 
     public UploadRVAdapter(List<UploadedPhrase> uploads) {
         this.uploads = uploads;
+        originalUploads = new ArrayList<UploadedPhrase>();
     }
 
     @Override
@@ -105,5 +110,10 @@ public class UploadRVAdapter extends RecyclerView.Adapter<UploadRVAdapter.ViewHo
                 }
             });
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return UploadedPhrase.filter(originalUploads, uploads, this);
     }
 }
