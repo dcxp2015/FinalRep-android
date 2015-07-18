@@ -7,7 +7,7 @@
     <string name="title_activity_playlist">Playlists</string>
     <string name="create">Create</string>
     <string name="playlistName">Name</string>
-    <string name="title_activity_phrase_libary">PhraseLibaryActivity</string>
-    <string name="title_activity_explore">ExploreActivity</string>
-    <string name="title_activity_playlist_selection">PlaylistSelectionActivity</string>
+    <string name="title_activity_phrase_libary">My Library</string>
+    <string name="title_activity_explore">Explore Content</string>
+    <string name="title_activity_playlist_selection">New Playlist</string>
 </resources>
