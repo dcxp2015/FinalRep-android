@@ -9,6 +9,9 @@ import java.util.List;
  * Created by Daniel on 7/15/2015.
  */
 public class Playlist {
+    public static final String NAME = "name";
+    public static final String PHRASES = "phrases";
+
     private String name;
     private String oldName;
     private List<Phrase> phrases;

@@ -41,6 +41,9 @@ public class RVPhraseAdapter extends RecyclerView.Adapter<RVPhraseAdapter.ViewHo
         final Phrase upload = uploads.get(position);
         holder.title.setText(upload.getName());
         holder.submitter.setText(upload.getSubmitter());
+
+        // Set the proper phrase for this view's tag so it can be grabbed in PlaylistSelectionActivity
+        holder.view.setTag(uploads.get(position));
     }
 
     @Override
@@ -52,10 +55,16 @@ public class RVPhraseAdapter extends RecyclerView.Adapter<RVPhraseAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutToInflate, parent, false);
         view.setOnClickListener(listener);
-        return new ViewHolder(view);
+
+        // Save off this view for later so we can set it's tag to the proper phrase in onBindViewHolder
+        ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.view = view;
+
+        return viewHolder;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private View view;
         private ImageButton playButton;
         private TextView title;
         private TextView submitter;

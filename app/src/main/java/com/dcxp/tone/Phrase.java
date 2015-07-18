@@ -9,6 +9,9 @@ import java.util.List;
  * Created by Daniel on 7/17/2015.
  */
 public class Phrase {
+    public static final String NAME = "name";
+    public static final String SUBMITTER = "submitter";
+
     private String name;
     private String submitter;
 

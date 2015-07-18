@@ -1,18 +1,15 @@
 package com.dcxp.tone.dialogs;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dcxp.tone.PlaylistManager;
 import com.dcxp.tone.activities.PlaylistSelectionActivity;
-import com.dcxp.tone.activities.SelectWorkoutActivity;
-import com.dcxp.tone.playlist.IPlaylistListener;
 import com.dcxp.tone.R;
 import com.dcxp.tone.playlist.Playlist;
 
@@ -22,7 +19,7 @@ import com.dcxp.tone.playlist.Playlist;
 public class PlaylistNameDialog extends AlertDialog.Builder {
     private boolean editingMode;
 
-    public PlaylistNameDialog(final Context context, final IPlaylistListener listener, final Playlist playlistToEdit) {
+    public PlaylistNameDialog(final Context context, final Playlist playlistToEdit) {
         super(context);
 
         final EditText name = new EditText(getContext());
@@ -57,7 +54,7 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                     public void onClick(View v) {
                         String playlistName = name.getText().toString();
 
-                        if(listener.isPlaylistNameTaken(playlistName)) {
+                        if(PlaylistManager.isPlaylistNameTaken(playlistName)) {
                             if(playlistToEdit != null && !playlistName.equals(playlistToEdit.getName())) {
                                 Toast.makeText(getContext(), "You already have a playlist with that name", Toast.LENGTH_SHORT).show();
                                 return;
@@ -78,7 +75,18 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                             playlist.setOldName(playlist.getName());
                             playlist.setName(playlistName);
 
-                            getContext().startActivity(new Intent(getContext(), PlaylistSelectionActivity.class));
+                            // Add the playlist and save it off
+                            if(!PlaylistManager.getPlaylists().contains(playlist)) {
+                                PlaylistManager.addPlaylist(playlist);
+                                PlaylistManager.save(getContext());
+                            }
+
+                            Intent intent = new Intent(getContext(), PlaylistSelectionActivity.class);
+
+                            // Pass over the position of this playlist rather than doing it by serialization
+                            intent.putExtra("playlist", PlaylistManager.indexOf(playlist));
+                            
+                            context.startActivity(intent);
                         }
                         else {
                             Toast.makeText(getContext(), "Please enter a valid playlist name", Toast.LENGTH_SHORT).show();
