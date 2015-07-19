@@ -11,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by Daniel on 7/17/2015.
  */
 public class RVPhraseAdapter extends RecyclerView.Adapter<RVPhraseAdapter.ViewHolder> implements Filterable {
-    private List<Phrase> uploads;
+    protected List<Phrase> uploads;
     private List<Phrase> originalUploads;
     private View.OnClickListener listener;
     private int layoutToInflate;
@@ -64,7 +65,8 @@ public class RVPhraseAdapter extends RecyclerView.Adapter<RVPhraseAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private View view;
+        protected View view;
+        public RelativeLayout wrapperLayout;
         private ImageButton playButton;
         private TextView title;
         private TextView submitter;
@@ -78,7 +80,7 @@ public class RVPhraseAdapter extends RecyclerView.Adapter<RVPhraseAdapter.ViewHo
             submitter = (TextView) view.findViewById(R.id.txtv_submitter);
             injectableContainer = (FrameLayout) view.findViewById(R.id.fl_container);
             progressBar = new ProgressBar(view.getContext());
-
+            wrapperLayout = ((RelativeLayout) view.findViewById(R.id.rl_cv_wrapper));
             playButton.setTag(R.drawable.play);
 
             final Resources resources = view.getResources();

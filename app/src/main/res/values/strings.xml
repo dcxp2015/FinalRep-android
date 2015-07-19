@@ -10,4 +10,16 @@
     <string name="title_activity_phrase_libary">My Library</string>
     <string name="title_activity_explore">Explore Content</string>
     <string name="title_activity_playlist_selection">New Playlist</string>
+
+    <string name="title_activity_navigation_test">NavigationTest</string>
+
+    <string name="title_section1">Explore</string>
+    <string name="title_section2">My Phrases</string>
+    <string name="title_section3">My Playlists</string>
+    <string name="title_section4">Start Workout</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>
