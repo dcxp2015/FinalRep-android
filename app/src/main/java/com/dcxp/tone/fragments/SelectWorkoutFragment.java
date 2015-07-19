@@ -22,7 +22,7 @@ public class SelectWorkoutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.activity_select_workout, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_select_workout, container, false);
         final Context context = getActivity();
 
         final String[] workouts = new String[25];

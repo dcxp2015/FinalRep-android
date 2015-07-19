@@ -31,7 +31,7 @@ public class PhraseLibraryFragment extends Fragment implements SearchView.OnQuer
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.activity_phrase_libary, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_phrase_libary, container, false);
 
         List<Phrase> phrases = new ArrayList<Phrase>();
 

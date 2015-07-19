@@ -25,7 +25,7 @@ public class PlaylistsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.activity_playlist, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_playlist, container, false);
 
         PlaylistManager.load(getActivity());
 
