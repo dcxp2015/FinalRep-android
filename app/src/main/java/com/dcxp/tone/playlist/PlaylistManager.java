@@ -1,9 +1,9 @@
-package com.dcxp.tone;
+package com.dcxp.tone.playlist;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.dcxp.tone.playlist.Playlist;
+import com.dcxp.tone.Phrase;
 import com.dcxp.tone.utils.IOSettings;
 import com.dcxp.tone.utils.IOUtils;
 import com.dcxp.tone.utils.PlaylistUtils;

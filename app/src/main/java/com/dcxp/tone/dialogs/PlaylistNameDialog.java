@@ -3,12 +3,11 @@ package com.dcxp.tone.dialogs;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dcxp.tone.PlaylistManager;
+import com.dcxp.tone.playlist.PlaylistManager;
 import com.dcxp.tone.R;
 import com.dcxp.tone.playlist.Playlist;
 

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.dcxp.tone.PlaylistManager;
+import com.dcxp.tone.playlist.PlaylistManager;
 import com.dcxp.tone.R;
 import com.dcxp.tone.dialogs.PlaylistNameDialog;
 import com.dcxp.tone.playlist.PlaylistRowAdapter;

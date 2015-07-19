@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.dcxp.tone.Phrase;
-import com.dcxp.tone.PlaylistManager;
+import com.dcxp.tone.playlist.PlaylistManager;
 import com.dcxp.tone.R;
 import com.dcxp.tone.RVPhraseAdapter;
 import com.dcxp.tone.playlist.Playlist;

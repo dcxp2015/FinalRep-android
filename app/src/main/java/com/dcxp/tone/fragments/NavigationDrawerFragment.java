@@ -1,4 +1,4 @@
-package com.dcxp.tone.activities;
+package com.dcxp.tone.fragments;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;

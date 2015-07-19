@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.dcxp.tone.R;
+import com.dcxp.tone.fragments.NavigationDrawerFragment;
 import com.dcxp.tone.fragments.PhraseLibraryFragment;
 import com.dcxp.tone.fragments.PlaylistsFragment;
 import com.dcxp.tone.fragments.SelectWorkoutFragment;
