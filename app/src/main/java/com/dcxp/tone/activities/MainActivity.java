@@ -1,5 +1,6 @@
 package com.dcxp.tone.activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -31,11 +32,15 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
     private NavigationDrawerFragment navigationDrawerFragment;
+    private String currentFragmentTitle;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        actionBar = getSupportActionBar();
 
         List<String> list = new ArrayList<String>();
         list.add("Explore");
@@ -65,11 +70,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 toggle.syncState();
+                actionBar.setTitle(getString(R.string.title_activity_navigation_test));
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+                actionBar.setTitle(currentFragmentTitle);
                 toggle.syncState();
             }
 
@@ -86,6 +93,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 .beginTransaction()
                 .add(R.id.fl_content, new SelectWorkoutFragment())
                 .commit();
+
+        actionBar.setTitle(currentFragmentTitle = "Select Workout");
     }
 
     @Override
@@ -94,22 +103,25 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             return;
         }
 
-        // Hide the drawer
-        drawerLayout.closeDrawer(Gravity.LEFT);
-        toggle.syncState();
-
         // Add in the right fragment based on which item was clicked in the drawer
         switch(position) {
             case EXPLORE:
                 setContent(null, null);
+                currentFragmentTitle = "Explore";
                 break;
             case MY_PLAYLISTS:
                 setContent(PlaylistsFragment.class, null);
+                currentFragmentTitle = "My Playlists";
                 break;
             case MY_PHRASES:
                 setContent(PhraseLibraryFragment.class, null);
+                currentFragmentTitle = "My Phrases";
                 break;
         }
+
+        // Hide the drawer
+        drawerLayout.closeDrawer(Gravity.LEFT);
+        toggle.syncState();
     }
 
     public void setContent(Class<? extends Fragment> fragcls, Bundle args) {
