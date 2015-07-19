@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import com.dcxp.tone.PlaylistManager;
 import com.dcxp.tone.R;
-import com.dcxp.tone.activities.PlaylistActivity;
 import com.dcxp.tone.dialogs.PlaylistNameDialog;
 import com.dcxp.tone.playlist.PlaylistRowAdapter;
 import com.melnykov.fab.FloatingActionButton;

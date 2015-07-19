@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dcxp.tone.PlaylistManager;
-import com.dcxp.tone.activities.PlaylistSelectionActivity;
 import com.dcxp.tone.R;
 import com.dcxp.tone.playlist.Playlist;
 
@@ -81,12 +80,13 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                                 PlaylistManager.save(getContext());
                             }
 
-                            Intent intent = new Intent(getContext(), PlaylistSelectionActivity.class);
+
+                            //Intent intent = new Intent(getContext(), PlaylistSelectionActivity.class);
 
                             // Pass over the position of this playlist rather than doing it by serialization
-                            intent.putExtra("playlist", PlaylistManager.indexOf(playlist));
+                           // intent.putExtra("playlist", PlaylistManager.indexOf(playlist));
                             
-                            context.startActivity(intent);
+                           // context.startActivity(intent);
                         }
                         else {
                             Toast.makeText(getContext(), "Please enter a valid playlist name", Toast.LENGTH_SHORT).show();
