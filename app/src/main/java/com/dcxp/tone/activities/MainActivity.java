@@ -1,5 +1,6 @@
 package com.dcxp.tone.activities;
 
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -8,11 +9,15 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.dcxp.tone.R;
 import com.dcxp.tone.fragments.ExploreFragment;
@@ -20,6 +25,8 @@ import com.dcxp.tone.fragments.NavigationDrawerFragment;
 import com.dcxp.tone.fragments.PhraseLibraryFragment;
 import com.dcxp.tone.fragments.PlaylistsFragment;
 import com.dcxp.tone.fragments.SelectWorkoutFragment;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         ListView listView = (ListView) findViewById(R.id.lv_nav);
-        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
+        listView.setAdapter(new NavigationDrawerArrayAdapter(this, list));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -138,6 +145,50 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             .commit();
         } catch(Exception e) {
             Log.e(TAG, e + "");
+        }
+    }
+
+    private class NavigationDrawerArrayAdapter extends ArrayAdapter<String> {
+        private List<String> items;
+        private Context context;
+
+        public NavigationDrawerArrayAdapter(Context context, List<String> items) {
+            super(context, -1, items);
+            this.context = context;
+            this.items = items;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View inflatedView = convertView;
+
+            if(inflatedView == null) {
+                inflatedView = LayoutInflater.from(context).inflate(R.layout.navigation_drawer_item, parent, false);
+            }
+
+            String name = items.get(position);
+
+            ImageView itemImage = (ImageView) inflatedView.findViewById(R.id.iv_item_image);
+            TextView itemName = (TextView) inflatedView.findViewById(R.id.txtv_item_name);
+
+            itemName.setText(name);
+
+            switch(name) {
+                case "Explore":
+                    itemImage.setImageResource(R.drawable.explore);
+                    break;
+                case "My Playlists":
+                    itemImage.setImageResource(R.drawable.playlist);
+                    break;
+                case "My Phrases":
+                    itemImage.setImageResource(R.drawable.audio);
+                    break;
+                case "Start Workout":
+                    itemImage.setImageResource(R.drawable.flex);
+                    break;
+            }
+
+            return inflatedView;
         }
     }
 }
