@@ -15,7 +15,7 @@
         <Space
             android:layout_width="12dp"
             android:layout_height="match_parent"/>
-        
+
         <TextView
             android:id="@+id/txtv_item_name"
             android:textAppearance="?android:attr/textAppearanceLarge"

@@ -15,6 +15,8 @@ import android.widget.SearchView;
 import com.dcxp.tone.Phrase;
 import com.dcxp.tone.R;
 import com.dcxp.tone.RVPhraseAdapter;
+import com.dcxp.tone.dialogs.PhraseCreationDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,15 @@ public class PhraseLibraryFragment extends Fragment implements SearchView.OnQuer
         searchView.setOnQueryTextListener(this);
 
         filter = adapter.getFilter();
+
+        FloatingActionButton add = (FloatingActionButton) inflatedView.findViewById(R.id.fab_phrases_add);
+        add.attachToRecyclerView(lv);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new PhraseCreationDialog(getActivity());
+            }
+        });
 
         return inflatedView;
     }
