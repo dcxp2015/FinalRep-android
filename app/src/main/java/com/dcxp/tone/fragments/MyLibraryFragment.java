@@ -44,7 +44,7 @@ public class MyLibraryFragment extends Fragment implements SearchView.OnQueryTex
                 if(adapter != null) {
                     adapter.notifyDataSetChanged();
                 }
-                
+
                 return super.remove(object);
             }
 

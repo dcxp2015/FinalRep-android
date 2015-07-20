@@ -1,12 +1,16 @@
 package com.dcxp.tone.dialogs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dcxp.tone.activities.MainActivity;
+import com.dcxp.tone.fragments.PlaylistSelectionFragment;
 import com.dcxp.tone.playlist.PlaylistManager;
 import com.dcxp.tone.R;
 import com.dcxp.tone.playlist.Playlist;
@@ -17,7 +21,7 @@ import com.dcxp.tone.playlist.Playlist;
 public class PlaylistNameDialog extends AlertDialog.Builder {
     private boolean editingMode;
 
-    public PlaylistNameDialog(final Context context, final Playlist playlistToEdit) {
+    public PlaylistNameDialog(final Activity context, final Playlist playlistToEdit) {
         super(context);
 
         final EditText name = new EditText(getContext());
@@ -86,6 +90,11 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                            // intent.putExtra("playlist", PlaylistManager.indexOf(playlist));
                             
                            // context.startActivity(intent);
+
+                            Bundle args = new Bundle();
+                            args.putInt("playlist", PlaylistManager.indexOf(playlist));
+
+                            ((MainActivity) context).setContent(PlaylistSelectionFragment.class, args);
                         }
                         else {
                             Toast.makeText(getContext(), "Please enter a valid playlist name", Toast.LENGTH_SHORT).show();

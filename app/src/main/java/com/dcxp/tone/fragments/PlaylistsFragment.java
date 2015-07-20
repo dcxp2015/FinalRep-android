@@ -1,5 +1,6 @@
 package com.dcxp.tone.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,7 +30,7 @@ public class PlaylistsFragment extends Fragment {
 
         PlaylistManager.load(getActivity());
 
-        final Context context = getActivity();
+        final Activity context = getActivity();
 
         ListView lv = (ListView) inflatedView.findViewById(R.id.lv_playlist);
         lv.setAdapter(adapter = adapter == null ? new PlaylistRowAdapter(context, PlaylistManager.getPlaylists()) : adapter);
