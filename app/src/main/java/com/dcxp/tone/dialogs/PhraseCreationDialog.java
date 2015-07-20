@@ -1,5 +1,7 @@
 package com.dcxp.tone.dialogs;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +22,7 @@ import com.dcxp.tone.fragments.ExploreFragment;
  */
 public class PhraseCreationDialog extends AlertDialog.Builder {
 
-    public PhraseCreationDialog(final Context context) {
+    public PhraseCreationDialog(final Activity context) {
         super(context);
 
         setTitle("Add phrase");
@@ -37,7 +39,7 @@ public class PhraseCreationDialog extends AlertDialog.Builder {
             public void onClick(DialogInterface dialog, int which) {
                 if(!record.isChecked()) {
                     // User wants to record
-                    Toast.makeText(context, "Record", Toast.LENGTH_SHORT).show();
+                    new RecordingDialog().show(context.getFragmentManager(), null);
                 }
                 else {
                     // User wants to download, send them to the content page
