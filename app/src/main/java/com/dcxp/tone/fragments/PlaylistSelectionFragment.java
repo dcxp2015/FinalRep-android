@@ -64,8 +64,7 @@ public class PlaylistSelectionFragment extends Fragment implements View.OnClickL
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //        PlaylistManager.addPlaylist(playList);
-
+                //PlaylistManager.addPlaylist(playList);
                 // Go back to the playlist screen
                 context.onBackPressed();
             }

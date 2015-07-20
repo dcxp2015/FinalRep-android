@@ -5,12 +5,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.dcxp.tone.Phrase;
+import com.dcxp.tone.PhraseManager;
+import com.dcxp.tone.playlist.Playlist;
 import com.dcxp.tone.playlist.PlaylistManager;
 import com.dcxp.tone.R;
 import com.dcxp.tone.dialogs.PlaylistNameDialog;
@@ -22,13 +26,18 @@ import com.melnykov.fab.FloatingActionButton;
  */
 public class PlaylistsFragment extends Fragment {
     private PlaylistRowAdapter adapter;
+    private static boolean loaded;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.fragment_playlist, container, false);
 
-        PlaylistManager.load(getActivity());
+        if(!loaded) {
+            PlaylistManager.load(getActivity());
+        }
+
+        loaded = true;
 
         final Activity context = getActivity();
 
