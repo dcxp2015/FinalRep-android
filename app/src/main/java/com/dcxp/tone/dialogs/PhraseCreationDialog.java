@@ -42,6 +42,8 @@ public class PhraseCreationDialog extends AlertDialog.Builder {
                     new RecordingDialog().show(context.getFragmentManager(), null);
                 }
                 else {
+                    // Update the action bar title
+                    ((MainActivity) context).getSupportActionBar().setTitle("Explore");
                     // User wants to download, send them to the content page
                     ((MainActivity) context).setContent(ExploreFragment.class, null);
                 }
