@@ -131,13 +131,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     public void setContent(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.fl_content, fragment)
-                .commit();
-    }
 
+    }
     public void setContent(Class<? extends Fragment> fragcls, Bundle args) {
         try {
             Fragment fragment = fragcls.newInstance();

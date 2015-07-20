@@ -13,11 +13,13 @@
         android:id="@+id/card"
         card_view:cardUseCompatPadding="true"
         card_view:cardElevation="4dp"
+        android:background="#fff"
         card_view:cardCornerRadius="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
