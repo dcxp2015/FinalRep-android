@@ -1,7 +1,6 @@
 package com.dcxp.tone.activities;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -22,11 +21,9 @@ import android.widget.TextView;
 import com.dcxp.tone.R;
 import com.dcxp.tone.fragments.ExploreFragment;
 import com.dcxp.tone.fragments.NavigationDrawerFragment;
-import com.dcxp.tone.fragments.PhraseLibraryFragment;
+import com.dcxp.tone.fragments.MyLibraryFragment;
 import com.dcxp.tone.fragments.PlaylistsFragment;
 import com.dcxp.tone.fragments.SelectWorkoutFragment;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +120,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 currentFragmentTitle = "My Playlists";
                 break;
             case MY_PHRASES:
-                setContent(PhraseLibraryFragment.class, null);
+                setContent(MyLibraryFragment.class, null);
                 currentFragmentTitle = "My Phrases";
                 break;
         }

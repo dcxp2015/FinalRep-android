@@ -6,13 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
 
 import com.dcxp.tone.Phrase;
+import com.dcxp.tone.PhraseManager;
 import com.dcxp.tone.R;
 import com.dcxp.tone.RVPhraseAdapter;
 import com.dcxp.tone.dialogs.PhraseCreationDialog;
@@ -24,7 +27,7 @@ import java.util.List;
 /**
  * Created by Daniel on 7/18/2015.
  */
-public class PhraseLibraryFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class MyLibraryFragment extends Fragment implements SearchView.OnQueryTextListener {
     private RecyclerView lv;
     private SearchView searchView;
     private Filter filter;
@@ -35,7 +38,27 @@ public class PhraseLibraryFragment extends Fragment implements SearchView.OnQuer
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.fragment_phrase_libary, container, false);
 
-        List<Phrase> phrases = new ArrayList<Phrase>();
+        List<Phrase> phrases = new ArrayList<Phrase>() {
+            @Override
+            public boolean remove(Object object) {
+                if(adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+                
+                return super.remove(object);
+            }
+
+            @Override
+            public boolean add(Phrase object) {
+                if(adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+
+                return super.add(object);
+            }
+        };
+
+        PhraseManager.setPhrases(phrases);
 
         phrases.add(new Phrase("Push harder", "Daniel Christopher"));
         phrases.add(new Phrase("You got it", "Daniel Christopher"));
