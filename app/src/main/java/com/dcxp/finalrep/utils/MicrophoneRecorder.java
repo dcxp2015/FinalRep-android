@@ -11,6 +11,7 @@ import java.io.IOException;
  */
 public class MicrophoneRecorder {
     public static final String TAG = "com.dcxp.finalrep.utils";
+    private IAudioPlayListener audioPlayListener;
     private MediaRecorder recorder;
 
     public void start(String fileName) {
@@ -32,18 +33,37 @@ public class MicrophoneRecorder {
     public void stop() {
         recorder.stop();
         recorder.release();
-        recorder = null;
+    }
 
-        MediaPlayer player = new MediaPlayer();
+    public void play(String filename) {
+        final MediaPlayer player = new MediaPlayer();
+
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                player.stop();
+                player.release();
+
+                if(audioPlayListener != null) {
+                    audioPlayListener.onAudioDonePlaying();
+                }
+            }
+        });
 
         try {
-            player.setDataSource("TEMP");
-            player.start();
+            player.setDataSource(filename);
             player.prepare();
+            player.start();
         } catch(Exception e) {
             Log.e(TAG, e.toString());
         }
+    }
 
-        player.stop();
+    public void setAudioPlayListener(IAudioPlayListener audioPlayListener) {
+        this.audioPlayListener = audioPlayListener;
+    }
+
+    public static interface IAudioPlayListener {
+        void onAudioDonePlaying();
     }
 }

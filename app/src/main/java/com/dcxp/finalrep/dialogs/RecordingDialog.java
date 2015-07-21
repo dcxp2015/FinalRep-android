@@ -1,5 +1,6 @@
 package com.dcxp.finalrep.dialogs;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
@@ -16,13 +17,18 @@ import android.widget.Toast;
 import com.dcxp.finalrep.R;
 import com.dcxp.finalrep.activity.MainActivity;
 import com.dcxp.finalrep.models.Phrase;
+import com.dcxp.finalrep.utils.Config;
+import com.dcxp.finalrep.utils.IOUtils;
 import com.dcxp.finalrep.utils.MicrophoneRecorder;
 
 /**
  * Created by Daniel on 7/19/2015.
  */
 public class RecordingDialog extends DialogFragment implements PhraseNameDialog.INameCreationListener {
-    private static final String TEMP = "temp";
+    private static final String PLAY = "Play";
+    private static final String PAUSE = "Pause";
+
+    private MainActivity context;
     private Phrase builtPhrase;
     private IRecordingDialogListener listener;
     private MicrophoneRecorder recorder;
@@ -34,9 +40,11 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        listener = (IRecordingDialogListener) getActivity();
+        context = (MainActivity) getActivity();
+        listener = (IRecordingDialogListener) context;
 
-       / recorder = new MicrophoneRecorder();
+        
+        recorder = new MicrophoneRecorder();
 
         View inflatedView = inflater.inflate(R.layout.dialog_recording, container, false);
 
@@ -64,15 +72,22 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
     }
 
     private void showConfirmDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Keep this recording?");
 
         builder.setPositiveButton("Keep", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Prompt the user for the name they want
-                new PhraseNameDialog((MainActivity) getActivity(), RecordingDialog.this);
+                new PhraseNameDialog((MainActivity) context, RecordingDialog.this);
                 dismiss();
+            }
+        });
+
+        builder.setNeutralButton(PLAY, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
             }
         });
 
@@ -83,7 +98,45 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
             }
         });
 
-        builder.show();
+        final AlertDialog d = builder.create();
+
+        d.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                // Set the listener for play, we dont want play to close the window
+                final Button play = d.getButton(DialogInterface.BUTTON_NEUTRAL);
+                play.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String text = play.getText().toString();
+
+                        if (text.equals(PLAY)) {
+                            play.setText(PAUSE);
+
+                            // Play the audio
+                            recorder.play(Config.IO.BASE_AUDIO_PATH + (IOUtils.getNextPhraseID(context) - 1) + Config.IO.AUDIO_FILE_TYPE);
+
+                            // Be notified when it's done playing
+                            recorder.setAudioPlayListener(new MicrophoneRecorder.IAudioPlayListener() {
+                                @Override
+                                public void onAudioDonePlaying() {
+                                    // The audio is done playing, just set the text back to play
+                                    play.setText(PLAY);
+                                }
+                            });
+
+                        } else if (text.equals(PAUSE)) {
+                            play.setText(PLAY);
+
+                            // Pause the audio
+                            recorder.stop();
+                        }
+                    }
+                });
+            }
+        });
+
+        d.show();
     }
 
     @Override
@@ -99,11 +152,12 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
     }
 
     private void startRecording() {
-       // recorder.start(TEMP);
+        IOUtils.incrementPhraseID(context);
+        recorder.start(Config.IO.BASE_AUDIO_PATH + IOUtils.getNextPhraseID(context) + Config.IO.AUDIO_FILE_TYPE);
     }
 
     private void stopRecording() {
-       // recorder.stop();
+        recorder.stop();
     }
 
     public static interface IRecordingDialogListener {

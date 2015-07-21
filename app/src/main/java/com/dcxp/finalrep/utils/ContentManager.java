@@ -25,8 +25,8 @@ public class ContentManager {
 
         for(Phrase phrase : phrases) {
             JSONObject object = new JSONObject();
-            object.put(JSONConfig.NAME, phrase.getName());
-            object.put(JSONConfig.SUBMITTER, phrase.getSubmitter());
+            object.put(Config.JSON.NAME, phrase.getName());
+            object.put(Config.JSON.SUBMITTER, phrase.getSubmitter());
             phraseObject.put(object);
         }
 
@@ -39,7 +39,7 @@ public class ContentManager {
         List<Playlist> playlists = new ArrayList<Playlist>();
 
         try {
-            root = new JSONArray(IOUtils.readContents(context, JSONConfig.PLAYLIST_JSON_FILE));
+            root = new JSONArray(IOUtils.readContents(context, Config.JSON.PLAYLIST_JSON_FILE));
         } catch(Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -60,7 +60,7 @@ public class ContentManager {
         JSONArray root = null;
 
         try {
-            root = new JSONArray(IOUtils.readContents(context, JSONConfig.PHRASES_JSON_FILE));
+            root = new JSONArray(IOUtils.readContents(context, Config.JSON.PHRASES_JSON_FILE));
         } catch(Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -70,7 +70,7 @@ public class ContentManager {
 
     public static void savePhrases(Context context, List<Phrase> phrases) {
         try {
-            IOUtils.write(context, JSONConfig.PHRASES_JSON_FILE, phrasesToJSONArray(phrases).toString());
+            IOUtils.write(context, Config.JSON.PHRASES_JSON_FILE, phrasesToJSONArray(phrases).toString());
         } catch(Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -83,8 +83,8 @@ public class ContentManager {
             JSONObject obj = new JSONObject();
 
             try {
-                obj.put(JSONConfig.NAME, playlist.getName());
-                obj.put(JSONConfig.PHRASES, phrasesToJSONArray(playlist.getPhrases()));
+                obj.put(Config.JSON.NAME, playlist.getName());
+                obj.put(Config.JSON.PHRASES, phrasesToJSONArray(playlist.getPhrases()));
             } catch(JSONException e) {
                 Log.e(TAG, e.toString());
             }
@@ -93,7 +93,7 @@ public class ContentManager {
         }
 
         try {
-            IOUtils.write(context, JSONConfig.PLAYLIST_JSON_FILE, json.toString());
+            IOUtils.write(context, Config.JSON.PLAYLIST_JSON_FILE, json.toString());
         } catch(IOException e) {
             Log.e(TAG, e.toString());
         }
