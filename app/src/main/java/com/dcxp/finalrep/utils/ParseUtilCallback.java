@@ -9,5 +9,5 @@ import com.parse.ParseException;
  */
 public interface ParseUtilCallback{
     public void success(Object result);
-    public void failure(ParseException reason);
+    public void failure(Object reason);
 }

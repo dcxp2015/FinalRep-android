@@ -1,6 +1,7 @@
 package com.dcxp.finalrep.activity;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -21,10 +22,14 @@ import com.dcxp.finalrep.fragments.Playlists;
 import com.dcxp.finalrep.utils.ParseUtil;
 import com.dcxp.finalrep.utils.ParseUtilCallback;
 import com.dcxp.finalrep.utils.PhraseManager;
+import com.dcxp.finalrep.utils.PhraseObject;
 import com.parse.Parse;
-import com.parse.ParseObject;
 import com.parse.ParseException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -40,10 +45,15 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private CharSequence title;
     private PhraseManager phraseManager;
 
+    //Delete this after testing!
+    private MediaPlayer mediaTest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mediaTest = new MediaPlayer();
 
         //Parse initialization
         Parse.enableLocalDatastore(this);
@@ -102,19 +112,48 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         drawerLayout.setDrawerListener(toggle);
     }
 
+    public void playSoundFromFile(File f){
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            mediaTest.setDataSource(fis.getFD());
+            mediaTest.prepare();
+            mediaTest.start();
+        }
+        catch (IOException ex) {
+            String s = ex.toString();
+            ex.printStackTrace();
+        }
+    }
+
+
     @Override
     public void onStart(){
         super.onStart();
+
+
+
         ParseUtil.getAllPhrases(new ParseUtilCallback() {
             @Override
             public void success(Object result) {
-                ParseObject res = (ParseObject) result;
-                System.out.print(res);
+                ArrayList<PhraseObject> res = (ArrayList<PhraseObject>) result;
+                PhraseObject po = res.get(2);
+
+                ParseUtil.getAudioFileForPhrase(po, getCacheDir(), new ParseUtilCallback() {
+                    @Override
+                    public void success(Object result) {
+                        playSoundFromFile((File)result);
+                    }
+
+                    @Override
+                    public void failure(Object reason) {
+
+                    }
+                });
             }
 
             @Override
-            public void failure(ParseException reason) {
-                reason.fillInStackTrace();
+            public void failure(Object reason) {
+                ((ParseException)reason).fillInStackTrace();
             }
         });
     }
