@@ -1,5 +1,6 @@
 package com.dcxp.finalrep.utils;
 
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
 
@@ -32,5 +33,17 @@ public class MicrophoneRecorder {
         recorder.stop();
         recorder.release();
         recorder = null;
+
+        MediaPlayer player = new MediaPlayer();
+
+        try {
+            player.setDataSource("TEMP");
+            player.start();
+            player.prepare();
+        } catch(Exception e) {
+            Log.e(TAG, e.toString());
+        }
+
+        player.stop();
     }
 }

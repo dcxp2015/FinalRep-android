@@ -31,8 +31,8 @@ public class PhraseManager extends ContextWrapper {
         listeners = new ArrayList<IPlaylistListener>();
 
         // TODO: ASYNC LOADING
-        phrases = ContentLoader.loadPhrases(this);
-        playlists = ContentLoader.loadPlaylists(this);
+        phrases = ContentManager.loadPhrases(this);
+        playlists = ContentManager.loadPlaylists(this);
     }
 
     public void register(IPlaylistListener listener) {
@@ -59,6 +59,16 @@ public class PhraseManager extends ContextWrapper {
         }
     }
 
+    public boolean isPhraseNameTaken(String phrase) {
+        for(Phrase ph : phrases) {
+            if(ph.getName().equals(phrase)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean isPlaylistNameTaken(String playlist) {
         for(Playlist pl : playlists) {
             if(pl.getName().equals(playlist)) {
@@ -77,6 +87,14 @@ public class PhraseManager extends ContextWrapper {
         }
 
         return null;
+    }
+
+    public void savePhrases() {
+        ContentManager.savePhrases(this, phrases);
+    }
+
+    public void addPhrase(Phrase phrase) {
+        phrases.add(phrase);
     }
 
     public int indexOfPlaylist(Playlist playlist) {

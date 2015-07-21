@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Daniel on 7/20/2015.
  */
-public class ContentLoader {
+public class ContentManager {
     public static final String TAG = "com.dcxp.finalrep.utils";
 
     private static JSONArray phrasesToJSONArray(List<Phrase> phrases) throws JSONException {

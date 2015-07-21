@@ -1,10 +1,8 @@
 package com.dcxp.finalrep.dialogs;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,9 +10,8 @@ import android.widget.Toast;
 import com.dcxp.finalrep.R;
 import com.dcxp.finalrep.activity.MainActivity;
 import com.dcxp.finalrep.fragments.PlaylistSelection;
-import com.dcxp.finalrep.models.Phrase;
 import com.dcxp.finalrep.models.Playlist;
-import com.dcxp.finalrep.utils.ContentLoader;
+import com.dcxp.finalrep.utils.ContentManager;
 import com.dcxp.finalrep.utils.PhraseManager;
 
 
@@ -83,7 +80,7 @@ public class PlaylistNameDialog extends AlertDialog.Builder {
                                 // Add the playlist, listeners will be notified
                                 phraseManager.addPlaylist(playlist);
 
-                                ContentLoader.savePlaylists(context, phraseManager.getPlaylists());
+                                ContentManager.savePlaylists(context, phraseManager.getPlaylists());
                             }
 
 
