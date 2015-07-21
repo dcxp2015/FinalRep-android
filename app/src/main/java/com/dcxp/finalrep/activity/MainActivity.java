@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.dcxp.finalrep.R;
 import com.dcxp.finalrep.fragments.Playlists;
 import com.dcxp.finalrep.utils.PhraseManager;
+import com.parse.Parse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Parse initialization
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "kJawWr0883JUddCTgipaPphexvb3tPUY3Cq9E5uE", "cQCuAIKEwrYWmu4wvdYjwbbMFnBruLSupV7GQnh6");
 
         phraseManager = new PhraseManager(this);
 
