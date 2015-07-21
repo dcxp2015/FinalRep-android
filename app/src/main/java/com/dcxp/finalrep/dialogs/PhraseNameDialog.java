@@ -52,6 +52,7 @@ public class PhraseNameDialog extends AlertDialog.Builder {
                         }
 
                         listener.onNameSubmitted(n);
+                        d.dismiss();
                     }
                 });
             }

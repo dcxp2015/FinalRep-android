@@ -27,6 +27,7 @@ public class ContentManager {
             JSONObject object = new JSONObject();
             object.put(Config.JSON.NAME, phrase.getName());
             object.put(Config.JSON.SUBMITTER, phrase.getSubmitter());
+            object.put(Config.JSON.FILE, phrase.getFile());
             phraseObject.put(object);
         }
 
@@ -108,7 +109,7 @@ public class ContentManager {
             int length = o.length();
             for (int i = 0; i < length; i++) {
                 JSONObject pobj = o.getJSONObject(i);
-                phraseList.add(new Phrase(pobj.getString("name"), pobj.getString("submitter")));
+                phraseList.add(new Phrase(pobj.getString(Config.JSON.NAME), pobj.getString(Config.JSON.SUBMITTER), pobj.getString(Config.JSON.FILE)));
             }
 
             return phraseList;
@@ -122,9 +123,9 @@ public class ContentManager {
     private static Playlist parsePlaylist(JSONObject obj) throws JSONException{
         Playlist playlist = new Playlist();
 
-        playlist.setName(obj.getString("name"));
+        playlist.setName(obj.getString(Config.JSON.NAME));
 
-        List<Phrase> parsedPhrases = parsePhrases(obj.getJSONArray("phrases"));
+        List<Phrase> parsedPhrases = parsePhrases(obj.getJSONArray(Config.JSON.PHRASES));
 
         for(Phrase p : parsedPhrases) {
             playlist.addPhrase(p);

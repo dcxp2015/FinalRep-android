@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.dcxp.finalrep.R;
-import com.dcxp.finalrep.RVPhraseAdapter;
+import com.dcxp.finalrep.adapters.RVPhraseAdapter;
 import com.dcxp.finalrep.activity.MainActivity;
 import com.dcxp.finalrep.models.Phrase;
 import com.dcxp.finalrep.models.Playlist;

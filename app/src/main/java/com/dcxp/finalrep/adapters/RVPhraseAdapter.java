@@ -1,8 +1,7 @@
-package com.dcxp.finalrep;
+package com.dcxp.finalrep.adapters;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dcxp.finalrep.R;
 import com.dcxp.finalrep.models.Phrase;
 
 import java.util.ArrayList;

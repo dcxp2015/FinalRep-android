@@ -1,10 +1,8 @@
 package com.dcxp.finalrep.models;
 
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
-import com.dcxp.finalrep.RVPhraseAdapter;
+import com.dcxp.finalrep.adapters.RVPhraseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +13,24 @@ import java.util.List;
 public class Phrase {
     private String name;
     private String submitter;
+    private String file;
 
     public Phrase() {
 
     }
 
-    public Phrase(String name, String submitter) {
+    public Phrase(String name, String submitter, String file) {
         this.name = name;
         this.submitter = submitter;
+        this.file = file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getFile() {
+        return file;
     }
 
     public String getSubmitter() {

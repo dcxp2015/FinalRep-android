@@ -43,7 +43,7 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
         context = (MainActivity) getActivity();
         listener = (IRecordingDialogListener) context;
 
-        
+        builtPhrase = new Phrase();
         recorder = new MicrophoneRecorder();
 
         View inflatedView = inflater.inflate(R.layout.dialog_recording, container, false);
@@ -113,7 +113,7 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
                         if (text.equals(PLAY)) {
                             play.setText(PAUSE);
 
-                            // Play the audio
+                            // Now play the audio file
                             recorder.play(Config.IO.BASE_AUDIO_PATH + (IOUtils.getNextPhraseID(context) - 1) + Config.IO.AUDIO_FILE_TYPE);
 
                             // Be notified when it's done playing
@@ -144,7 +144,6 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
         RecordingDialog.this.dismiss();
 
         // Build a phrase based on the provided data
-        builtPhrase = new Phrase();
         builtPhrase.setName(name);
         builtPhrase.setSubmitter("You");
 
@@ -152,8 +151,20 @@ public class RecordingDialog extends DialogFragment implements PhraseNameDialog.
     }
 
     private void startRecording() {
+        // We are recording a new phrase, increment the ID so the new file will have the right id
         IOUtils.incrementPhraseID(context);
-        recorder.start(Config.IO.BASE_AUDIO_PATH + IOUtils.getNextPhraseID(context) + Config.IO.AUDIO_FILE_TYPE);
+
+        // Build the new path
+        String audioFilePath = Config.IO.BASE_AUDIO_PATH + (IOUtils.getNextPhraseID(context) - 1) + Config.IO.AUDIO_FILE_TYPE;
+
+        // Start recording into the file
+        recorder.start(audioFilePath);
+
+        // The current phrase's file is now audioFilePath
+        builtPhrase.setFile(audioFilePath);
+
+        // Give the current phrase this path
+        builtPhrase.setFile(audioFilePath);
     }
 
     private void stopRecording() {
