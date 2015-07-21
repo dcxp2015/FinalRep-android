@@ -27,5 +27,6 @@
             android:gravity="center_vertical"
             android:text="name goes here"
             android:layout_weight="1" />
+
     </TableRow>
 </TableLayout>

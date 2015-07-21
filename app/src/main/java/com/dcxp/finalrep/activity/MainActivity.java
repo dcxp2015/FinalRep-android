@@ -6,14 +6,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dcxp.finalrep.R;
@@ -21,7 +23,10 @@ import com.dcxp.finalrep.fragments.Playlists;
 import com.dcxp.finalrep.utils.PhraseManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -39,16 +44,25 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         phraseManager = new PhraseManager(this);
 
+        List<String> libraryChildren = new ArrayList<String>();
+        libraryChildren.add("Record");
+        libraryChildren.add("Explore");
+
+        List<String> playlistsChildren = new ArrayList<String>();
+
+        List<String> startWorkoutChildren = new ArrayList<String>();
+
         // Create the list of strings containing the nav bar titles
-        List<String> list = new ArrayList<String>();
-        list.add("Explore");
-        list.add("My Playlists");
-        list.add("Start Workout");
+        Map<String, List<String>> navitems = new LinkedHashMap<String, List<String>>();
+        navitems.put("Library", libraryChildren);
+        navitems.put("Playlists", playlistsChildren);
+        navitems.put("Start Workout", startWorkoutChildren);
 
         navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        ListView listView = (ListView) findViewById(R.id.lv_nav);
-        listView.setAdapter(new NavigationDrawerArrayAdapter(this, list));
+        ExpandableListView listView = (ExpandableListView) findViewById(R.id.lv_nav);
+        listView.setAdapter(new NavigiationDrawerAdapter(this, navitems));
+        listView.setGroupIndicator(null);
 
         actionBar = getSupportActionBar();
 
@@ -116,25 +130,59 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     /**
      * Adapter for the navigation drawer list view. Ouputs a view containing a textview and imageview
      */
-    private class NavigationDrawerArrayAdapter extends ArrayAdapter<String> {
-        private List<String> items;
+    private class NavigiationDrawerAdapter extends BaseExpandableListAdapter {
+        private Map<String, List<String>> items;
         private Context context;
 
-        public NavigationDrawerArrayAdapter(Context context, List<String> items) {
-            super(context, -1, items);
+        public NavigiationDrawerAdapter(Context context, Map<String, List<String>> items) {
             this.context = context;
             this.items = items;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public int getGroupCount() {
+            return items.keySet().size();
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return items.get(getKey(groupPosition)).size();
+        }
+
+        @Override
+        public Object getGroup(int groupPosition) {
+            return items.get(getKey(groupPosition));
+        }
+
+        @Override
+        public Object getChild(int groupPosition, int childPosition) {
+            return items.get(getKey(groupPosition)).get(childPosition);
+        }
+
+        @Override
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return false;
+        }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             View inflatedView = convertView;
 
             if(inflatedView == null) {
                 inflatedView = LayoutInflater.from(context).inflate(R.layout.row_navigation_drawer, parent, false);
             }
 
-            String name = items.get(position);
+            String name = getKey(groupPosition);
 
             ImageView itemImage = (ImageView) inflatedView.findViewById(R.id.iv_item_image);
             TextView itemName = (TextView) inflatedView.findViewById(R.id.txtv_item_name);
@@ -142,10 +190,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             itemName.setText(name);
 
             switch(name) {
-                case "Explore":
+                case "Library":
                     itemImage.setImageResource(R.drawable.explore);
                     break;
-                case "My Playlists":
+                case "Playlists":
                     itemImage.setImageResource(R.drawable.audio);
                     setContent(new Playlists());
                     break;
@@ -155,6 +203,41 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             }
 
             return inflatedView;
+        }
+
+        @Override
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+            View inflatedView = convertView;
+
+            if(inflatedView == null) {
+                inflatedView = getLayoutInflater().inflate(R.layout.row_navigation_drawer_child, parent, false);
+            }
+
+            ((TextView) inflatedView.findViewById(R.id.txtv_item_name)).setText(items.get(getKey(groupPosition)).get(childPosition));
+
+            return inflatedView;
+        }
+
+        @Override
+        public boolean isChildSelectable(int groupPosition, int childPosition) {
+            return true;
+        }
+
+        private String getKey(int pos) {
+            Iterator<String> iter = items.keySet().iterator();
+
+            int i = 0;
+            while(iter.hasNext()) {
+                String str = iter.next();
+
+                if(i == pos) {
+                    return str;
+                }
+
+                i++;
+            }
+
+            return null;
         }
     }
 
