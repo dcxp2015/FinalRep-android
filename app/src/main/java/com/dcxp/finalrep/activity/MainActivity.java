@@ -1,27 +1,29 @@
 package com.dcxp.finalrep.activity;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dcxp.finalrep.R;
 import com.dcxp.finalrep.fragments.Playlists;
+import com.dcxp.finalrep.utils.ParseUtil;
+import com.dcxp.finalrep.utils.ParseUtilCallback;
 import com.dcxp.finalrep.utils.PhraseManager;
 import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -98,6 +100,23 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         toggle.setDrawerIndicatorEnabled(true);
 
         drawerLayout.setDrawerListener(toggle);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        ParseUtil.getAllPhrases(new ParseUtilCallback() {
+            @Override
+            public void success(Object result) {
+                ParseObject res = (ParseObject) result;
+                System.out.print(res);
+            }
+
+            @Override
+            public void failure(ParseException reason) {
+                reason.fillInStackTrace();
+            }
+        });
     }
 
     @Override
