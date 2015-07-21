@@ -1,6 +1,8 @@
 package com.dcxp.finalrep.activity;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -19,6 +22,9 @@ import android.widget.TextView;
 
 import com.dcxp.finalrep.R;
 import com.dcxp.finalrep.fragments.Playlists;
+import com.dcxp.finalrep.utils.ContentLoader;
+import com.dcxp.finalrep.utils.IOUtils;
+import com.dcxp.finalrep.utils.JSONConfig;
 import com.dcxp.finalrep.utils.ParseUtil;
 import com.dcxp.finalrep.utils.ParseUtilCallback;
 import com.dcxp.finalrep.utils.PhraseManager;
@@ -29,12 +35,15 @@ import com.parse.ParseException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -57,7 +66,21 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         //Parse initialization
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "kJawWr0883JUddCTgipaPphexvb3tPUY3Cq9E5uE", "cQCuAIKEwrYWmu4wvdYjwbbMFnBruLSupV7GQnh6");
+
+
+        AssetManager am = getBaseContext().getAssets();
+
+        String[] keys = null;
+
+        try {
+            InputStream is = am.open("data_keys");
+            String theString = IOUtils.convertStreamToString(is);
+            keys = theString.split(" ");
+        } catch (IOException e) {
+            Log.e("TAG","UNABLE TO LOAD PARSE DATA KEYS FILE");
+        }
+
+        Parse.initialize(this, keys[0], keys[1]);
 
         phraseManager = new PhraseManager(this);
 
