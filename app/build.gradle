@@ -5,8 +5,8 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.dcxp.tone"
-        minSdkVersion 16
+        applicationId "com.dcxp.finalrep"
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
